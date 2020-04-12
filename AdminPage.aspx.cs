@@ -41,6 +41,47 @@ namespace Capstone2nd
             Response.Redirect("EditAdmin.aspx");
         }
 
+        protected void Change_Order(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            try
+            {
+                con.Open();
+                DropDownList selectedList = sender as DropDownList;
+                string senderID = selectedList.ID;
+                string newOrder = selectedList.SelectedItem.Value;
+                string tableName = String.Empty;
+
+                if (senderID == "fieldOrder")
+                {
+                    tableName = "FieldOfStudy";
+                }
+
+                //last part of the statement simply lets us update everything at once
+                //since every entry should have the same kind of ordering
+                String sql = "UPDATE " + tableName + " SET \"order\" = @order WHERE fieldID IS NOT NULL;";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.Add(new SqlParameter("@order", newOrder));
+                cmd.ExecuteNonQuery();
+                //cmd.Parameters.Clear();
+            }
+
+            catch (Exception err)
+            {
+                Response.Write("<script>alert(\"" + err.Message + "\");</script>");
+                Response.Write(err.Message);
+            }
+
+            finally
+            {
+                con.Close();
+                Session["message"] = "Changes successfully applied!";
+                populateData(true);
+            }
+        }
+
         //if the entry is new it will postback
         protected void populateData(bool isNew)
         {
@@ -57,10 +98,39 @@ namespace Capstone2nd
                     int selectedIndex = fieldList.SelectedIndex;
 
                     fieldList.Items.Clear();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM FieldOfStudy", con);
+                    String sql = "SELECT \"order\" FROM FieldOfStudy";
+                    String orderType = String.Empty;
                     con.Open();
+                    SqlCommand cmd = new SqlCommand(sql, con);
                     SqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        orderType = reader["order"].ToString();
+                        System.Diagnostics.Debug.Write(orderType);
+                        break;
+                    }
+
+                    reader.Close();
+                    
+                    if (orderType == "alpha")
+                    {
+                        sql = "SELECT * FROM FieldOfStudy ORDER BY value";
+                    }
+
+                    else if (orderType == "custom")
+                    {
+                        sql = "SELECT * FROM FieldOfStudy";
+                    }
+
+                    //otherwise order by date added aka id
+                    else
+                    {
+                        sql = "SELECT * FROM FieldOfStudy ORDER BY fieldID";
+                    }
+
+                    cmd = new SqlCommand(sql, con);
+                    reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         ListItem NewItem = new ListItem(reader["value"].ToString());
@@ -72,7 +142,6 @@ namespace Capstone2nd
 
                     //populate role dropdown
                     selectedIndex = roleList.SelectedIndex;
-
                     roleList.Items.Clear();
                     cmd = new SqlCommand("SELECT * FROM ManagerRole", con);
                     reader = cmd.ExecuteReader();
@@ -88,7 +157,6 @@ namespace Capstone2nd
 
                     //populate grade dropdown
                     selectedIndex = gradeList.SelectedIndex;
-
                     gradeList.Items.Clear();
                     cmd = new SqlCommand("SELECT * FROM Grades", con);
                     reader = cmd.ExecuteReader();

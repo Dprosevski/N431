@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Capstone2nd
-{
-
-
-    public partial class AdminPage
-    {
-
+namespace Capstone2nd {
+    
+    
+    public partial class AdminPage {
+        
         /// <summary>
         /// naviation control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Capstone2nd.Navigation naviation;
-
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// lblMessage control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-
+        
         /// <summary>
         /// addNewAdminID control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink addNewAdminID;
-
+        
         /// <summary>
         /// lblFindAdminID control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFindAdminID;
-
+        
         /// <summary>
         /// adminList control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList adminList;
-
+        
         /// <summary>
         /// editAdminID control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button editAdminID;
-
+        
         /// <summary>
         /// newField control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newField;
-
+        
         /// <summary>
         /// newFieldActive control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newFieldActive;
-
+        
         /// <summary>
         /// submitNewField control.
         /// </summary>
@@ -103,7 +101,16 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewField;
-
+        
+        /// <summary>
+        /// fieldOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList fieldOrder;
+        
         /// <summary>
         /// fieldList control.
         /// </summary>
@@ -112,7 +119,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList fieldList;
-
+        
         /// <summary>
         /// fieldActive control.
         /// </summary>
@@ -121,7 +128,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox fieldActive;
-
+        
         /// <summary>
         /// editProgField control.
         /// </summary>
@@ -130,7 +137,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox editProgField;
-
+        
         /// <summary>
         /// fieldEdit control.
         /// </summary>
@@ -139,7 +146,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button fieldEdit;
-
+        
         /// <summary>
         /// newRole control.
         /// </summary>
@@ -148,7 +155,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newRole;
-
+        
         /// <summary>
         /// newRoleActive control.
         /// </summary>
@@ -157,7 +164,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newRoleActive;
-
+        
         /// <summary>
         /// submitNewRole control.
         /// </summary>
@@ -166,7 +173,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewRole;
-
+        
         /// <summary>
         /// roleList control.
         /// </summary>
@@ -175,7 +182,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList roleList;
-
+        
         /// <summary>
         /// roleActive control.
         /// </summary>
@@ -184,7 +191,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox roleActive;
-
+        
         /// <summary>
         /// roleEdit control.
         /// </summary>
@@ -193,7 +200,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox roleEdit;
-
+        
         /// <summary>
         /// roleEditBtn control.
         /// </summary>
@@ -202,7 +209,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button roleEditBtn;
-
+        
         /// <summary>
         /// newGrade control.
         /// </summary>
@@ -211,7 +218,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newGrade;
-
+        
         /// <summary>
         /// newGradeActive control.
         /// </summary>
@@ -220,7 +227,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newGradeActive;
-
+        
         /// <summary>
         /// submitNewGrade control.
         /// </summary>
@@ -229,7 +236,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewGrade;
-
+        
         /// <summary>
         /// gradeList control.
         /// </summary>
@@ -238,7 +245,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList gradeList;
-
+        
         /// <summary>
         /// gradeActive control.
         /// </summary>
@@ -247,7 +254,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox gradeActive;
-
+        
         /// <summary>
         /// gradeEdit control.
         /// </summary>
@@ -256,7 +263,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox gradeEdit;
-
+        
         /// <summary>
         /// gradeEditBtn control.
         /// </summary>
@@ -265,7 +272,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button gradeEditBtn;
-
+        
         /// <summary>
         /// newResidential control.
         /// </summary>
@@ -274,7 +281,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newResidential;
-
+        
         /// <summary>
         /// newResidentialActive control.
         /// </summary>
@@ -283,7 +290,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newResidentialActive;
-
+        
         /// <summary>
         /// submitNewResidential control.
         /// </summary>
@@ -292,7 +299,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewResidential;
-
+        
         /// <summary>
         /// residentialList control.
         /// </summary>
@@ -301,7 +308,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList residentialList;
-
+        
         /// <summary>
         /// residentialActive control.
         /// </summary>
@@ -310,7 +317,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox residentialActive;
-
+        
         /// <summary>
         /// residentialEdit control.
         /// </summary>
@@ -319,7 +326,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox residentialEdit;
-
+        
         /// <summary>
         /// residentialEditBtn control.
         /// </summary>
@@ -328,7 +335,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button residentialEditBtn;
-
+        
         /// <summary>
         /// newCost control.
         /// </summary>
@@ -337,7 +344,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newCost;
-
+        
         /// <summary>
         /// newCostActive control.
         /// </summary>
@@ -346,7 +353,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newCostActive;
-
+        
         /// <summary>
         /// submitNewCost control.
         /// </summary>
@@ -355,7 +362,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewCost;
-
+        
         /// <summary>
         /// costList control.
         /// </summary>
@@ -364,7 +371,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList costList;
-
+        
         /// <summary>
         /// costActive control.
         /// </summary>
@@ -373,7 +380,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox costActive;
-
+        
         /// <summary>
         /// costEdit control.
         /// </summary>
@@ -382,7 +389,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox costEdit;
-
+        
         /// <summary>
         /// costEditBtn control.
         /// </summary>
@@ -391,7 +398,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button costEditBtn;
-
+        
         /// <summary>
         /// newStipend control.
         /// </summary>
@@ -400,7 +407,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newStipend;
-
+        
         /// <summary>
         /// newStipendActive control.
         /// </summary>
@@ -409,7 +416,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newStipendActive;
-
+        
         /// <summary>
         /// submitNewStipend control.
         /// </summary>
@@ -418,7 +425,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewStipend;
-
+        
         /// <summary>
         /// stipendList control.
         /// </summary>
@@ -427,7 +434,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList stipendList;
-
+        
         /// <summary>
         /// stipendActive control.
         /// </summary>
@@ -436,7 +443,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox stipendActive;
-
+        
         /// <summary>
         /// stipendEdit control.
         /// </summary>
@@ -445,7 +452,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox stipendEdit;
-
+        
         /// <summary>
         /// stipendEditBtn control.
         /// </summary>
@@ -454,7 +461,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button stipendEditBtn;
-
+        
         /// <summary>
         /// newDuration control.
         /// </summary>
@@ -463,7 +470,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newDuration;
-
+        
         /// <summary>
         /// newDurationActive control.
         /// </summary>
@@ -472,7 +479,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newDurationActive;
-
+        
         /// <summary>
         /// submitNewDuration control.
         /// </summary>
@@ -481,7 +488,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewDuration;
-
+        
         /// <summary>
         /// durationList control.
         /// </summary>
@@ -490,7 +497,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList durationList;
-
+        
         /// <summary>
         /// durationActive control.
         /// </summary>
@@ -499,7 +506,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox durationActive;
-
+        
         /// <summary>
         /// durationEdit control.
         /// </summary>
@@ -508,7 +515,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox durationEdit;
-
+        
         /// <summary>
         /// durationEditBtn control.
         /// </summary>
@@ -517,7 +524,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button durationEditBtn;
-
+        
         /// <summary>
         /// newSeason control.
         /// </summary>
@@ -526,7 +533,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newSeason;
-
+        
         /// <summary>
         /// newSeasonActive control.
         /// </summary>
@@ -535,7 +542,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newSeasonActive;
-
+        
         /// <summary>
         /// submitNewSeason control.
         /// </summary>
@@ -544,7 +551,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewSeason;
-
+        
         /// <summary>
         /// seasonList control.
         /// </summary>
@@ -553,7 +560,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList seasonList;
-
+        
         /// <summary>
         /// seasonActive control.
         /// </summary>
@@ -562,7 +569,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox seasonActive;
-
+        
         /// <summary>
         /// seasonEdit control.
         /// </summary>
@@ -571,7 +578,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox seasonEdit;
-
+        
         /// <summary>
         /// seasonEditBtn control.
         /// </summary>
@@ -580,7 +587,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button seasonEditBtn;
-
+        
         /// <summary>
         /// newArea control.
         /// </summary>
@@ -589,7 +596,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox newArea;
-
+        
         /// <summary>
         /// newAreaActive control.
         /// </summary>
@@ -598,7 +605,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox newAreaActive;
-
+        
         /// <summary>
         /// submitNewArea control.
         /// </summary>
@@ -607,7 +614,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button submitNewArea;
-
+        
         /// <summary>
         /// areaList control.
         /// </summary>
@@ -616,7 +623,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList areaList;
-
+        
         /// <summary>
         /// areaActive control.
         /// </summary>
@@ -625,7 +632,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox areaActive;
-
+        
         /// <summary>
         /// areaEdit control.
         /// </summary>
@@ -634,7 +641,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox areaEdit;
-
+        
         /// <summary>
         /// areaEditBtn control.
         /// </summary>
