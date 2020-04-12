@@ -53,18 +53,22 @@
         <asp:CheckBox ID="newFieldActive" CssClass="FieldOfStudy" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewField" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
 
-        <!-- edit field -->
+        <!-- edit field order-->
         <asp:Label runat="server" Text="Edit the ordering for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="fieldOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
             <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
             <asp:ListItem Value="ID">By Date Added</asp:ListItem>
             <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
         </asp:DropDownList><br />
+
+        <!-- edit field -->
         <asp:Label runat="server" Text="Edit a field's name and status" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="fieldList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="fieldActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit name" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="editProgField" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        <asp:Label runat="server" Text="Edit custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="fieldCustomOrder"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="fieldEdit" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new manager role -->
@@ -73,7 +77,6 @@
         <asp:CheckBox ID="newRoleActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewRole" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
 
-        <!-- edit manager role -->
         <asp:Label runat="server" Text="Edit a manager role's name and status" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="roleList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="roleActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />

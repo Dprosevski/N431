@@ -71,7 +71,7 @@ namespace Capstone2nd
                 cmd.Parameters.Clear();
                 cmd.Dispose();
                 
-                //if they chose custom ordering, the "customOrder" field must be initialized
+                //if they chose custom ordering for the first time, the "customOrder" field must be initialized 
                 //initialize to ID position by default
                 if (newOrder == "custom")
                 {
@@ -129,42 +129,126 @@ namespace Capstone2nd
                 //populate the dropdown lists 
                 try
                 {
-
-                    //populate field dropdown
-                    int selectedIndex = fieldList.SelectedIndex;
-
-                    fieldList.Items.Clear();
-                    String sql = "SELECT \"order\" FROM FieldOfStudy";
-                    String orderType = String.Empty;
                     con.Open();
-                    SqlCommand cmd = new SqlCommand(sql, con);
-                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (reader.Read())
+                    //iterate through the page to fill each list
+                    List<DropDownList> dropDowns = new List<DropDownList>();
+                    dropDowns.Add(fieldList);
+                    dropDowns.Add(roleList);
+                    dropDowns.Add(gradeList);
+                    dropDowns.Add(residentialList);
+                    dropDowns.Add(costList);
+                    dropDowns.Add(stipendList);
+                    dropDowns.Add(durationList);
+                    dropDowns.Add(seasonList);
+                    dropDowns.Add(areaList);
+                    dropDowns.Add(adminList);
+
+                    //need to add each DB name to a list as well
+                    //be mindful of order
+                    List<string> DBNames = new List<string>();
+                    DBNames.Add("FieldOfStudy");
+                    DBNames.Add("ManagerRole");
+                    DBNames.Add("Grades");
+                    DBNames.Add("Residental");
+                    DBNames.Add("ProgramCost");
+                    DBNames.Add("Stipend");
+                    DBNames.Add("Duration");
+                    DBNames.Add("Season");
+                    DBNames.Add("ServiceArea");
+                    DBNames.Add("Admin");
+
+                    //store primary keys for if we're sorting by date
+                    List<string> primKeys = new List<string>();
+                    primKeys.Add("fieldID");
+                    primKeys.Add("roleID");
+                    primKeys.Add("gradesID");
+                    primKeys.Add("resiID");
+                    primKeys.Add("programCostID");
+                    primKeys.Add("stipendID");
+                    primKeys.Add("durationID");
+                    primKeys.Add("seasonID");
+                    primKeys.Add("serviceAreaID");
+                    primKeys.Add("adminID");
+
+                    for (int i = 0; i < dropDowns.Count; i++)
                     {
-                        orderType = reader["order"].ToString();
-                        System.Diagnostics.Debug.Write(orderType);
-                        break;
+                        DropDownList list = dropDowns[i];
+                        string DBName = DBNames[i];
+                        int selectedIndex = list.SelectedIndex;
+                        list.Items.Clear();
+
+                        System.Diagnostics.Debug.WriteLine("DBNAME : " + DBName);
+                        System.Diagnostics.Debug.WriteLine("LIST : " + list.ID);
+
+                        //not every value column name is the same
+                        //hopefully all of them will be "value" at some point but I don't want to break anything rn
+                        string colName = String.Empty;
+                        if (DBName == "ManagerRole")
+                        {
+                            colName = "roleName";
+                        }
+                        else if (DBName == "Admin")
+                        {
+                            colName = "email";
+                        }
+                        else
+                        {
+                            colName = "value";
+                        }
+
+                        //generate a SQL query based on ordering scheme
+                        String sql = "SELECT \"order\" FROM " + DBName;
+                        String orderType = String.Empty;
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                //all "order" entries should be the same so only need to read one
+                                while (reader.Read())
+                                {
+                                    orderType = reader["order"].ToString();
+                                    break;
+                                }
+                            }
+
+                            if (orderType == "alpha")
+                            {
+                                sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
+                            }
+
+                            else if (orderType == "custom")
+                            {
+                                sql = "SELECT * FROM " + DBName;
+                            }
+
+                            //otherwise order by date added aka id
+                            else
+                            {
+                                sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
+                            }
+                        }
+
+                        System.Diagnostics.Debug.WriteLine("SQL: " + sql);
+                        System.Diagnostics.Debug.WriteLine("ORDER TYPE : " + orderType);
+
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                //populate the dropdown
+                                while (reader.Read())
+                                {
+                                    ListItem newItem = new ListItem(reader[colName].ToString());
+                                    list.Items.Add(newItem);
+                                }
+
+                                list.SelectedIndex = selectedIndex;
+                            }
+                        }
                     }
 
-                    reader.Close();
-                    
-                    if (orderType == "alpha")
-                    {
-                        sql = "SELECT * FROM FieldOfStudy ORDER BY value";
-                    }
-
-                    else if (orderType == "custom")
-                    {
-                        sql = "SELECT * FROM FieldOfStudy";
-                    }
-
-                    //otherwise order by date added aka id
-                    else
-                    {
-                        sql = "SELECT * FROM FieldOfStudy ORDER BY fieldID";
-                    }
-
+                    /*
                     cmd = new SqlCommand(sql, con);
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -310,6 +394,7 @@ namespace Capstone2nd
                     }
                     adminList.SelectedIndex = selectedIndex;
                     reader.Close();
+                    */
                 }
 
                 catch (Exception err)
@@ -320,7 +405,7 @@ namespace Capstone2nd
                 finally
                 {
                     con.Close();
-                    Session["message"] = "Changes successfully applied!";
+                    //Session["message"] = "Changes successfully applied!";
                 }
 
                 Index_Change(null, null);
@@ -407,10 +492,12 @@ namespace Capstone2nd
                     valName = "roleName";
                     newRole.Text = string.Empty;
 
+                    /*
                     if (newRoleActive.Checked == false)
                     {
                         isActive = "inactive";
                     }
+                    */
                 }
 
                 else if (senderID == "submitNewGrade")
