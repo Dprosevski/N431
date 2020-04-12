@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="AdminPage.aspx.cs" Inherits="Capstone2nd.AdminPage" %>
 <%@ Register TagPrefix="general" TagName="Nav" Src="Navigation.ascx" %>
+<%@ Register TagPrefix="general" TagName="Footer" Src="Footer.ascx" %>
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -173,5 +174,8 @@
         <asp:TextBox ID="areaEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
         <asp:Button CssClass="btn btn-primary" ID="areaEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
     </form>
+
+    <!-- Footer -->
+    <general:Footer ID="footer" runat="server" />
 </body>
 </html>

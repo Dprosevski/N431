@@ -124,7 +124,9 @@ namespace Capstone2nd
             }
             catch (Exception err)
             {
+                lblMessage.Text = null;
                 lblMessage.Text = "Cannot submit information now. Please try again later.";
+
             }
             finally
             {
@@ -189,12 +191,14 @@ namespace Capstone2nd
             }
             catch (Exception err)
             {
+                lblMessage.Text = null;
                 lblMessage.Text = "Cannot submit information now. Please try again later.";
+
             }
             finally
             {
+                lblMessage.Text = "User has been registered!";
                 con.Close();
-                Response.Redirect("Default.aspx", true);
             }
         }
 

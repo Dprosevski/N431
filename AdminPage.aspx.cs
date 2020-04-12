@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+//must include this namespace
 using System.Data.SqlClient;
 using System.Web.Configuration;
 

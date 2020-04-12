@@ -225,8 +225,8 @@ C:\Users\dpros\Desktop\GitN431\bin\roslyn\VBCSCompiler.exe
 C:\Users\dpros\Desktop\GitN431\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\dpros\Desktop\GitN431\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\dpros\Desktop\GitN431\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csprojAssemblyReference.cache
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csproj.CopyComplete
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.dll
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.pdb
 C:\Users\dpros\Desktop\GitN431\bin\AjaxControlToolkit.dll
+C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csprojAssemblyReference.cache

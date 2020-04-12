@@ -52,7 +52,7 @@
         <div class="col-xl-8 col-lg-8">
         <form id="form1" runat="server">
 
-            <!--Error Message-->
+            <!--Message-->
             <asp:Label ID="lblMessage" Height="40px" Font-Size="18px" ForeColor="Red" runat="server" />
 
 
