@@ -67,8 +67,8 @@
         <asp:CheckBox ID="fieldActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit name" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="editProgField" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
-        <asp:Label runat="server" Text="Edit custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
-        <asp:DropDownList ID="fieldCustomOrder"></asp:DropDownList>
+        <asp:Label ID="fieldCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="fieldCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="fieldEdit" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new manager role -->

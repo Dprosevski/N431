@@ -171,10 +171,25 @@ namespace Capstone2nd
                     primKeys.Add("serviceAreaID");
                     primKeys.Add("adminID");
 
+                    List<DropDownList> orderLists = new List<DropDownList>();
+                    orderLists.Add(fieldOrder);
+
+                    //must make these visible if user selected custom
+                    List<Label> customLabels = new List<Label>();
+                    customLabels.Add(fieldCustomLbl);
+
+                    //custom ordering drop downs
+                    List<DropDownList> customLists = new List<DropDownList>();
+                    customLists.Add(fieldCustomOrder);
+
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
                         DropDownList list = dropDowns[i];
                         string DBName = DBNames[i];
+                        DropDownList orderList = orderLists[i];
+                        Label customLbl = customLabels[i];
+                        DropDownList customList = customLists[i];
+
                         int selectedIndex = list.SelectedIndex;
                         list.Items.Clear();
 
@@ -214,17 +229,24 @@ namespace Capstone2nd
 
                             if (orderType == "alpha")
                             {
+                                orderList.SelectedIndex = 0;
                                 sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
                             }
 
                             else if (orderType == "custom")
                             {
-                                sql = "SELECT * FROM " + DBName;
+                                orderList.SelectedIndex = 2;
+                                customList.Visible = true;
+                                customLbl.Visible = true;
+                                customList.Items.Clear();
+
+                                sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
                             }
 
                             //otherwise order by date added aka id
                             else
                             {
+                                orderList.SelectedIndex = 1;
                                 sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
                             }
                         }
@@ -241,9 +263,16 @@ namespace Capstone2nd
                                 {
                                     ListItem newItem = new ListItem(reader[colName].ToString());
                                     list.Items.Add(newItem);
+
+                                    if (orderType == "custom")
+                                    {
+                                        customList.Items.Add(reader["customOrder"].ToString());
+                                    }
                                 }
 
                                 list.SelectedIndex = selectedIndex;
+                                customList.SelectedIndex = selectedIndex;
+                                System.Diagnostics.Debug.WriteLine("OMG XDDDDDD " + customList.SelectedIndex);
                             }
                         }
                     }
