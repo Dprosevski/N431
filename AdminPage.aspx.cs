@@ -53,19 +53,51 @@ namespace Capstone2nd
                 string senderID = selectedList.ID;
                 string newOrder = selectedList.SelectedItem.Value;
                 string tableName = String.Empty;
+                string idName = String.Empty;
 
                 if (senderID == "fieldOrder")
                 {
                     tableName = "FieldOfStudy";
+                    idName = "fieldID";
                 }
 
                 //last part of the statement simply lets us update everything at once
                 //since every entry should have the same kind of ordering
-                String sql = "UPDATE " + tableName + " SET \"order\" = @order WHERE fieldID IS NOT NULL;";
+                String sql = "UPDATE " + tableName + " SET \"order\" = @order WHERE @idName IS NOT NULL;";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add(new SqlParameter("@order", newOrder));
+                cmd.Parameters.Add(new SqlParameter("@idName", idName));
                 cmd.ExecuteNonQuery();
-                //cmd.Parameters.Clear();
+                cmd.Parameters.Clear();
+                cmd.Dispose();
+                
+                //if they chose custom ordering, the "customOrder" field must be initialized
+                //initialize to ID position by default
+                if (newOrder == "custom")
+                {
+                    sql = "SELECT * FROM " + tableName + " WHERE customOrder IS NULL";
+                    //SqlDataReader reader = cmd.ExecuteReader();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //if (DBNull.Value.Equals(reader["customOrder"]))
+                            if (reader["customOrder"] == NULL)
+                            {
+                                System.Diagnostics.Debug.WriteLine("IS NULL\n\n\n\n\n");
+                                SqlConnection con2 = new SqlConnection(cs);
+                                con2.Open();
+                                sql = "UPDATE " + tableName + " SET \"customOrder\" = " + idName + " WHERE @idName IS NOT NULL;";
+                                SqlCommand cmd2 = new SqlCommand(sql, con2);
+                                cmd2.ExecuteNonQuery();
+                                cmd2.Parameters.Clear();
+                            }
+                            break;
+                        }
+                    }
+                        //reader.Close();
+                        //reader.Dispose();
+                }
             }
 
             catch (Exception err)
@@ -77,7 +109,6 @@ namespace Capstone2nd
             finally
             {
                 con.Close();
-                Session["message"] = "Changes successfully applied!";
                 populateData(true);
             }
         }

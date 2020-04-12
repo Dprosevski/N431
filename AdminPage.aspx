@@ -59,7 +59,7 @@
             <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
             <asp:ListItem Value="ID">By Date Added</asp:ListItem>
             <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
-        </asp:DropDownList>
+        </asp:DropDownList><br />
         <asp:Label runat="server" Text="Edit a field's name and status" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="fieldList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="fieldActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
