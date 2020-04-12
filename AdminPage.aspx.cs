@@ -75,28 +75,33 @@ namespace Capstone2nd
                 //initialize to ID position by default
                 if (newOrder == "custom")
                 {
-                    sql = "SELECT * FROM " + tableName + " WHERE customOrder IS NULL";
-                    //SqlDataReader reader = cmd.ExecuteReader();
+                    sql = "SELECT * FROM " + tableName;
+                    cmd = new SqlCommand(sql, con);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            //if (DBNull.Value.Equals(reader["customOrder"]))
-                            if (reader["customOrder"] == NULL)
+                            if (DBNull.Value.Equals(reader["customOrder"]))
                             {
-                                System.Diagnostics.Debug.WriteLine("IS NULL\n\n\n\n\n");
                                 SqlConnection con2 = new SqlConnection(cs);
                                 con2.Open();
-                                sql = "UPDATE " + tableName + " SET \"customOrder\" = " + idName + " WHERE @idName IS NOT NULL;";
+                                sql = "UPDATE " + tableName + " SET customOrder = " + idName + " WHERE @idName IS NOT NULL;";
                                 SqlCommand cmd2 = new SqlCommand(sql, con2);
+                                cmd2.Parameters.Add(new SqlParameter("@idName", idName));
                                 cmd2.ExecuteNonQuery();
                                 cmd2.Parameters.Clear();
+                                con2.Close();
                             }
+
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine("NOT NULL\n\n\n\n\n");
+                            }
+
+                            cmd.Dispose();
                             break;
                         }
                     }
-                        //reader.Close();
-                        //reader.Dispose();
                 }
             }
 
@@ -361,7 +366,7 @@ namespace Capstone2nd
             finally
             {
                 con.Close();
-                Session["message"] = "Changes successfully applied!";
+                //Session["message"] = "Changes successfully applied!";
             }
         }
 
