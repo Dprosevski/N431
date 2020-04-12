@@ -239,6 +239,7 @@ namespace Capstone2nd
                                 customList.Visible = true;
                                 customLbl.Visible = true;
                                 customList.Items.Clear();
+                                customList.Items.Add(new ListItem(String.Empty, String.Empty));
 
                                 sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
                             }
@@ -271,7 +272,7 @@ namespace Capstone2nd
                                 }
 
                                 list.SelectedIndex = selectedIndex;
-                                customList.SelectedIndex = selectedIndex;
+                                customList.SelectedIndex = 0;
                                 System.Diagnostics.Debug.WriteLine("OMG XDDDDDD " + customList.SelectedIndex);
                             }
                         }
@@ -680,209 +681,277 @@ namespace Capstone2nd
 
                     editValue = editProgField.Text;
                     editProgField.Text = string.Empty;
-                }
 
-                if (senderID == "roleEditBtn")
-                {
-                    tableName = "ManagerRole";
-                    value = roleList.SelectedItem.Value;
-                    newValue = roleEdit.Text;
-                    idName = "roleName";
-
-                    if (roleActive.Checked)
+                    //find if this field uses custom ordering and if the u
+                    sql = "SELECT \"order\" FROM " + tableName;
+                    String orderType = String.Empty;
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        newStatus = "active";
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            //all "order" entries should be the same so only need to read one
+                            while (reader.Read())
+                            {
+                                orderType = reader["order"].ToString();
+                                break;
+                            }
+                        }
                     }
 
-                    else
+                    //only put through changes if the empty option (selected by default) is not chosen
+                    if (orderType == "custom")
                     {
-                        newStatus = "inactive";
+                        if (fieldCustomOrder.SelectedValue != String.Empty)
+                        {
+                            int newCustomOrder = int.Parse(fieldCustomOrder.SelectedValue);
+
+                            sql = "SELECT * FROM " + tableName;
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int curCustOrder = int.Parse(reader["customOrder"].ToString());
+                                        int curID = int.Parse(reader["fieldID"].ToString());
+
+                                        if (reader["value"].ToString() == value)
+                                        {
+                                            using (SqlConnection con2 = new SqlConnection(cs))
+                                            {
+                                                con2.Open();
+                                                string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE fieldID = " + curID + ";";
+                                                using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
+                                                {
+                                                    cmd2.ExecuteNonQuery();
+                                                }
+                                                con2.Close();
+                                            }
+                                        }
+                                        else if ((curCustOrder >= newCustomOrder))
+                                        {
+                                            curCustOrder += 1;
+                                            using (SqlConnection con2 = new SqlConnection(cs))
+                                            {
+                                                con2.Open();
+                                                string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustOrder + " WHERE fieldID = " + curID + ";";
+                                                using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
+                                                {
+                                                    cmd2.ExecuteNonQuery();
+                                                }
+                                                con2.Close();
+                                            }
+                                        }
+                                        System.Diagnostics.Debug.WriteLine(newCustomOrder);
+                                        populateData(false);
+                                    }
+                                }
+                            }
+                        }
                     }
 
-                    editValue = roleEdit.Text;
-                    roleEdit.Text = string.Empty;
-                }
-
-                if (senderID == "gradeEditBtn")
-                {
-                    tableName = "Grades";
-                    value = gradeList.SelectedItem.Value;
-                    newValue = gradeEdit.Text;
-                    idName = "value";
-
-                    if (gradeActive.Checked)
+                    if (senderID == "roleEditBtn")
                     {
-                        newStatus = "active";
+                        tableName = "ManagerRole";
+                        value = roleList.SelectedItem.Value;
+                        newValue = roleEdit.Text;
+                        idName = "roleName";
+
+                        if (roleActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = roleEdit.Text;
+                        roleEdit.Text = string.Empty;
                     }
 
-                    else
+                    if (senderID == "gradeEditBtn")
                     {
-                        newStatus = "inactive";
+                        tableName = "Grades";
+                        value = gradeList.SelectedItem.Value;
+                        newValue = gradeEdit.Text;
+                        idName = "value";
+
+                        if (gradeActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = gradeEdit.Text;
+                        gradeEdit.Text = string.Empty;
                     }
 
-                    editValue = gradeEdit.Text;
-                    gradeEdit.Text = string.Empty;
-                }
-
-                if (senderID == "residentialEditBtn")
-                {
-                    tableName = "Residental";
-                    value = residentialList.SelectedItem.Value;
-                    newValue = residentialEdit.Text;
-                    idName = "value";
-
-                    if (residentialActive.Checked)
+                    if (senderID == "residentialEditBtn")
                     {
-                        newStatus = "active";
+                        tableName = "Residental";
+                        value = residentialList.SelectedItem.Value;
+                        newValue = residentialEdit.Text;
+                        idName = "value";
+
+                        if (residentialActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = residentialEdit.Text;
+                        residentialEdit.Text = string.Empty;
                     }
 
-                    else
+                    if (senderID == "costEditBtn")
                     {
-                        newStatus = "inactive";
+                        tableName = "ProgramCost";
+                        value = costList.SelectedItem.Value;
+                        newValue = costEdit.Text;
+                        idName = "value";
+
+                        if (costActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = costEdit.Text;
+                        costEdit.Text = string.Empty;
                     }
 
-                    editValue = residentialEdit.Text;
-                    residentialEdit.Text = string.Empty;
-                }
-
-                if (senderID == "costEditBtn")
-                {
-                    tableName = "ProgramCost";
-                    value = costList.SelectedItem.Value;
-                    newValue = costEdit.Text;
-                    idName = "value";
-
-                    if (costActive.Checked)
+                    if (senderID == "stipendEditBtn")
                     {
-                        newStatus = "active";
+                        tableName = "Stipend";
+                        value = stipendList.SelectedItem.Value;
+                        newValue = stipendEdit.Text;
+                        idName = "value";
+
+                        if (stipendActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = stipendEdit.Text;
+                        stipendEdit.Text = string.Empty;
                     }
 
-                    else
+                    if (senderID == "durationEditBtn")
                     {
-                        newStatus = "inactive";
+                        tableName = "Duration";
+                        value = durationList.SelectedItem.Value;
+                        newValue = durationEdit.Text;
+                        idName = "value";
+
+                        if (durationActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = durationEdit.Text;
+                        durationEdit.Text = string.Empty;
                     }
 
-                    editValue = costEdit.Text;
-                    costEdit.Text = string.Empty;
-                }
-
-                if (senderID == "stipendEditBtn")
-                {
-                    tableName = "Stipend";
-                    value = stipendList.SelectedItem.Value;
-                    newValue = stipendEdit.Text;
-                    idName = "value";
-
-                    if (stipendActive.Checked)
+                    if (senderID == "seasonEditBtn")
                     {
-                        newStatus = "active";
+                        tableName = "Season";
+                        value = seasonList.SelectedItem.Value;
+                        newValue = seasonEdit.Text;
+                        idName = "value";
+
+                        if (seasonActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = seasonEdit.Text;
+                        seasonEdit.Text = string.Empty;
                     }
 
-                    else
+                    if (senderID == "areaEditBtn")
                     {
-                        newStatus = "inactive";
+                        tableName = "ServiceArea";
+                        value = areaList.SelectedItem.Value;
+                        newValue = areaEdit.Text;
+                        idName = "value";
+
+                        if (areaActive.Checked)
+                        {
+                            newStatus = "active";
+                        }
+
+                        else
+                        {
+                            newStatus = "inactive";
+                        }
+
+                        editValue = areaEdit.Text;
+                        areaEdit.Text = string.Empty;
                     }
 
-                    editValue = stipendEdit.Text;
-                    stipendEdit.Text = string.Empty;
-                }
-
-                if (senderID == "durationEditBtn")
-                {
-                    tableName = "Duration";
-                    value = durationList.SelectedItem.Value;
-                    newValue = durationEdit.Text;
-                    idName = "value";
-
-                    if (durationActive.Checked)
+                    if (value != String.Empty)
                     {
-                        newStatus = "active";
-                    }
-
-                    else
-                    {
-                        newStatus = "inactive";
-                    }
-
-                    editValue = durationEdit.Text;
-                    durationEdit.Text = string.Empty;
-                }
-
-                if (senderID == "seasonEditBtn")
-                {
-                    tableName = "Season";
-                    value = seasonList.SelectedItem.Value;
-                    newValue = seasonEdit.Text;
-                    idName = "value";
-
-                    if (seasonActive.Checked)
-                    {
-                        newStatus = "active";
-                    }
-
-                    else
-                    {
-                        newStatus = "inactive";
-                    }
-
-                    editValue = seasonEdit.Text;
-                    seasonEdit.Text = string.Empty;
-                }
-
-                if (senderID == "areaEditBtn")
-                {
-                    tableName = "ServiceArea";
-                    value = areaList.SelectedItem.Value;
-                    newValue = areaEdit.Text;
-                    idName = "value";
-
-                    if (areaActive.Checked)
-                    {
-                        newStatus = "active";
-                    }
-
-                    else
-                    {
-                        newStatus = "inactive";
-                    }
-
-                    editValue = areaEdit.Text;
-                    areaEdit.Text = string.Empty;
-                }
-
-                if (value != String.Empty)
-                {
-                    SqlCommand cmd = new SqlCommand("SELECT status FROM " + tableName + " WHERE " + idName + "= @value;", con);
-                    cmd.Parameters.Add(new SqlParameter("@value", value));
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        status = reader["status"].ToString();
-                    }
-
-                    reader.Close();
-
-                    if (status != String.Empty)
-                    {
-                        sql = "UPDATE " + tableName + " SET status= @status WHERE " + idName + "= @value;";
-                        cmd = new SqlCommand(sql, con);
+                        SqlCommand cmd = new SqlCommand("SELECT status FROM " + tableName + " WHERE " + idName + "= @value;", con);
                         cmd.Parameters.Add(new SqlParameter("@value", value));
-                        cmd.Parameters.Add(new SqlParameter("@status", newStatus));
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
-                    }
 
-                    //update field name then clear the text box
-                    if (editValue != String.Empty)
-                    {
-                        sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
-                        cmd = new SqlCommand(sql, con);
-                        cmd.Parameters.Add(new SqlParameter("@value", value));
-                        cmd.Parameters.Add(new SqlParameter("@newValue", newValue));
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            status = reader["status"].ToString();
+                        }
+
+                        reader.Close();
+
+                        if (status != String.Empty)
+                        {
+                            sql = "UPDATE " + tableName + " SET status= @status WHERE " + idName + "= @value;";
+                            cmd = new SqlCommand(sql, con);
+                            cmd.Parameters.Add(new SqlParameter("@value", value));
+                            cmd.Parameters.Add(new SqlParameter("@status", newStatus));
+                            cmd.ExecuteNonQuery();
+                            cmd.Parameters.Clear();
+                        }
+
+                        //update field name then clear the text box
+                        if (editValue != String.Empty)
+                        {
+                            sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
+                            cmd = new SqlCommand(sql, con);
+                            cmd.Parameters.Add(new SqlParameter("@value", value));
+                            cmd.Parameters.Add(new SqlParameter("@newValue", newValue));
+                            cmd.ExecuteNonQuery();
+                            cmd.Parameters.Clear();
+                        }
                     }
                 }
             }
