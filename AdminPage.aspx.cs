@@ -200,10 +200,7 @@ namespace Capstone2nd
 
                         int selectedIndex = list.SelectedIndex;
                         list.Items.Clear();
-
-                        System.Diagnostics.Debug.WriteLine("DBNAME : " + DBName);
-                        System.Diagnostics.Debug.WriteLine("LIST : " + list.ID);
-
+                       
                         //not every value column name is the same
                         //hopefully all of them will be "value" at some point but I don't want to break anything rn
                         string colName = String.Empty;
@@ -260,9 +257,6 @@ namespace Capstone2nd
                             }
                         }
 
-                        System.Diagnostics.Debug.WriteLine("SQL: " + sql);
-                        System.Diagnostics.Debug.WriteLine("ORDER TYPE : " + orderType);
-
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -281,7 +275,6 @@ namespace Capstone2nd
 
                                 list.SelectedIndex = selectedIndex;
                                 customList.SelectedIndex = 0;
-                                System.Diagnostics.Debug.WriteLine("OMG XDDDDDD " + customList.SelectedIndex);
                             }
                         }
                     }
@@ -660,12 +653,13 @@ namespace Capstone2nd
                 string newValue = String.Empty;
                 string status = String.Empty;
                 string newStatus = "inactive";
-                string sql = "";
+                string sql = String.Empty;
 
                 //find which button called this function and set the table name appropriately
                 Button clicked = sender as Button;
                 string senderID = clicked.ID;
-                string tableName = "";
+                string tableName = String.Empty;
+                string primKey = String.Empty;
 
                 //populate lists to build SQL queries
                 List<string> tableNames = new List<string>();
@@ -715,6 +709,23 @@ namespace Capstone2nd
                 activeBoxes.Add(seasonActive);
                 activeBoxes.Add(stipendActive);
                 activeBoxes.Add(areaActive);
+
+                //used in custom ordering
+                List<DropDownList> customOrderLists = new List<DropDownList>();
+                customOrderLists.Add(fieldCustomOrder);
+                customOrderLists.Add(managerCustomOrder);
+
+                List<string> primKeys = new List<string>();
+                primKeys.Add("fieldID");
+                primKeys.Add("roleID");
+                primKeys.Add("gradesID");
+                primKeys.Add("resiID");
+                primKeys.Add("programCostID");
+                primKeys.Add("stipendID");
+                primKeys.Add("durationID");
+                primKeys.Add("seasonID");
+                primKeys.Add("serviceAreaID");
+                primKeys.Add("adminID");
 
                 //as in the other methods, I have to use idName as not every table uses "value" to store its main value right now
                 string idName = "value";
@@ -771,6 +782,7 @@ namespace Capstone2nd
                 value = toEdit[index].SelectedItem.Value;
                 newValue = editValues[index].Text;
                 editValues[index].Text = string.Empty;
+                primKey = primKeys[index];
                 //newStatus is "inactive" by default
                 if (activeBoxes[index].Checked)
                 {
@@ -796,10 +808,12 @@ namespace Capstone2nd
                 //only put through changes if the empty option (selected by default) is not chosen
                 if (orderType == "custom")
                 {
-                    if (fieldCustomOrder.SelectedValue != String.Empty)
+                    System.Diagnostics.Debug.WriteLine("ORDERTYPE = CUSTOM");
+                    DropDownList customOrderList = customOrderLists[index];
+                    if (customOrderList.SelectedValue != String.Empty)
                     {
                         int oldCustomOrder = -1;
-                        int newCustomOrder = int.Parse(fieldCustomOrder.SelectedValue);
+                        int newCustomOrder = int.Parse(customOrderList.SelectedValue);
 
                         //first get the current custom order of the selected entry
                         sql = "SELECT * FROM  " + tableName + " WHERE " + idName + " = '" + value + "'";
@@ -810,12 +824,13 @@ namespace Capstone2nd
                                 while (reader.Read())
                                 {
                                     oldCustomOrder = int.Parse(reader["customOrder"].ToString());
-                                    System.Diagnostics.Debug.WriteLine("OLD CUST ORDER " + oldCustomOrder);
                                     break;
                                 }
                             }
                         }
 
+                        System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql);
+                        System.Diagnostics.Debug.WriteLine("HERE'S OLDCUST " + oldCustomOrder);
                         sql = "SELECT * FROM " + tableName;
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
@@ -824,14 +839,18 @@ namespace Capstone2nd
                                 while (reader.Read())
                                 {
                                     int curCustomOrder = int.Parse(reader["customOrder"].ToString());
-                                    int curID = int.Parse(reader["fieldID"].ToString());
+                                    System.Diagnostics.Debug.WriteLine("OMG!!!!!");
+                                    int curID = int.Parse(reader[primKey].ToString());
+                                    System.Diagnostics.Debug.WriteLine("WUTFACE EMOJI");
 
-                                    if (reader["value"].ToString() == value)
+                                    if (reader[idName].ToString() == value)
                                     {
                                         using (SqlConnection con2 = new SqlConnection(cs))
                                         {
                                             con2.Open();
-                                            string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE fieldID = " + curID + ";";
+                                            string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE " + primKey + " = " + curID + ";";
+
+                                            System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql2);
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
@@ -842,6 +861,7 @@ namespace Capstone2nd
                                     else if ((curCustomOrder > oldCustomOrder && curCustomOrder > newCustomOrder) || (curCustomOrder < oldCustomOrder && curCustomOrder < newCustomOrder))
                                     {
                                         //don't need to change anything lol
+
                                     }
                                     else
                                     {
@@ -858,7 +878,9 @@ namespace Capstone2nd
                                         using (SqlConnection con2 = new SqlConnection(cs))
                                         {
                                             con2.Open();
-                                            string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE fieldID = " + curID + ";";
+                                            string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE " + primKey + " = " + curID + ";";
+
+                                            System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql2);
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
