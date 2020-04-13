@@ -682,7 +682,7 @@ namespace Capstone2nd
                     editValue = editProgField.Text;
                     editProgField.Text = string.Empty;
 
-                    //find if this field uses custom ordering and if the u
+                    //find if this field uses custom ordering
                     sql = "SELECT \"order\" FROM " + tableName;
                     String orderType = String.Empty;
                     using (SqlCommand cmd = new SqlCommand(sql, con))
@@ -703,7 +703,23 @@ namespace Capstone2nd
                     {
                         if (fieldCustomOrder.SelectedValue != String.Empty)
                         {
+                            int oldCustomOrder = -1;
                             int newCustomOrder = int.Parse(fieldCustomOrder.SelectedValue);
+
+                            //first get the current custom order of the selected entry
+                            sql = "SELECT * FROM  " + tableName + " WHERE " + idName + " = '" + value + "'";
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        oldCustomOrder = int.Parse(reader["customOrder"].ToString());
+                                        System.Diagnostics.Debug.WriteLine("OLD CUST ORDER " + oldCustomOrder);
+                                        break;
+                                    }
+                                }
+                            }
 
                             sql = "SELECT * FROM " + tableName;
                             using (SqlCommand cmd = new SqlCommand(sql, con))
@@ -712,7 +728,7 @@ namespace Capstone2nd
                                 {
                                     while (reader.Read())
                                     {
-                                        int curCustOrder = int.Parse(reader["customOrder"].ToString());
+                                        int curCustomOrder = int.Parse(reader["customOrder"].ToString());
                                         int curID = int.Parse(reader["fieldID"].ToString());
 
                                         if (reader["value"].ToString() == value)
@@ -728,13 +744,26 @@ namespace Capstone2nd
                                                 con2.Close();
                                             }
                                         }
-                                        else if ((curCustOrder >= newCustomOrder))
+                                        else if ((curCustomOrder > oldCustomOrder && curCustomOrder > newCustomOrder) || (curCustomOrder < oldCustomOrder && curCustomOrder < newCustomOrder))
                                         {
-                                            curCustOrder += 1;
+                                            //don't need to change anything lol
+                                        }
+                                        else
+                                        {
+                                            if (newCustomOrder > oldCustomOrder)
+                                            {
+                                                curCustomOrder -= 1;
+                                            }
+
+                                            else if (newCustomOrder < oldCustomOrder)
+                                            {
+                                                curCustomOrder += 1;
+                                            }
+
                                             using (SqlConnection con2 = new SqlConnection(cs))
                                             {
                                                 con2.Open();
-                                                string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustOrder + " WHERE fieldID = " + curID + ";";
+                                                string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE fieldID = " + curID + ";";
                                                 using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                                 {
                                                     cmd2.ExecuteNonQuery();
