@@ -198,6 +198,7 @@ namespace Capstone2nd
                         Label customLbl = customLabels[i];
                         DropDownList customList = customLists[i];
 
+                        string selectedVal = list.SelectedValue;
                         int selectedIndex = list.SelectedIndex;
                         list.Items.Clear();
                        
@@ -231,15 +232,35 @@ namespace Capstone2nd
                                     break;
                                 }
                             }
-
-                            if (orderType == "alpha")
+                            
+                            if (orderType == "custom")
                             {
-                                orderList.SelectedIndex = 0;
-                                sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
-                            }
+                                string customTxt = customLbl.Text;
+                                string curCustVal = String.Empty;
+                                sql = "SELECT * FROM " + DBName + " WHERE " + colName + " = " + selectedVal;
 
-                            else if (orderType == "custom")
-                            {
+                                /*
+                                 * custom order labeling stuff:
+                                if (selectedVal != string.Empty)
+                                {
+                                    using (SqlConnection con2 = new SqlConnection(cs))
+                                    {
+                                        con2.Open();
+
+                                        System.Diagnostics.Debug.WriteLine(sql);
+                                        using (SqlCommand cmd2 = new SqlCommand(sql, con2))
+                                        {
+                                            using (SqlDataReader reader = cmd2.ExecuteReader())
+                                            {
+                                                curCustVal = reader["customOrder"].ToString();
+                                            }
+                                            customTxt += ", current position = " + curCustVal;
+                                            customLbl.Text = customTxt;
+                                        }
+                                        con2.Close();
+                                    }
+                                }
+                                */
                                 orderList.SelectedIndex = 2;
                                 customList.Visible = true;
                                 customLbl.Visible = true;
@@ -249,11 +270,22 @@ namespace Capstone2nd
                                 sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
                             }
 
-                            //otherwise order by date added aka id
                             else
                             {
-                                orderList.SelectedIndex = 1;
-                                sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
+                                customList.Visible = false;
+                                customLbl.Visible = false;
+                                if (orderType == "alpha")
+                                {
+                                    orderList.SelectedIndex = 0;
+                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
+                                }
+
+                                //otherwise order by date added aka id
+                                else
+                                {
+                                    orderList.SelectedIndex = 1;
+                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
+                                }
                             }
                         }
 
@@ -278,160 +310,13 @@ namespace Capstone2nd
                             }
                         }
                     }
-
-                    /*
-                    cmd = new SqlCommand(sql, con);
-                    reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        fieldList.Items.Add(NewItem);
-                    }
-
-                    fieldList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate role dropdown
-                    selectedIndex = roleList.SelectedIndex;
-                    roleList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM ManagerRole", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["roleName"].ToString());
-                        roleList.Items.Add(NewItem);
-                    }
-
-                    roleList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate grade dropdown
-                    selectedIndex = gradeList.SelectedIndex;
-                    gradeList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM Grades", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        gradeList.Items.Add(NewItem);
-                    }
-                    gradeList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate residential dropdown
-                    selectedIndex = residentialList.SelectedIndex;
-
-                    residentialList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM Residental", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        residentialList.Items.Add(NewItem);
-                    }
-
-                    residentialList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate cost dropdown
-                    selectedIndex = costList.SelectedIndex;
-
-                    costList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM ProgramCost", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        costList.Items.Add(NewItem);
-                    }
-                    costList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate stipend dropdown
-                    selectedIndex = stipendList.SelectedIndex;
-
-                    stipendList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM Stipend", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        stipendList.Items.Add(NewItem);
-                    }
-                    stipendList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate duration dropdown
-                    selectedIndex = durationList.SelectedIndex;
-
-                    durationList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM Duration", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        durationList.Items.Add(NewItem);
-                    }
-                    durationList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate season dropdown
-                    selectedIndex = seasonList.SelectedIndex;
-
-                    seasonList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM Season", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        seasonList.Items.Add(NewItem);
-                    }
-                    seasonList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate area dropdown
-                    selectedIndex = areaList.SelectedIndex;
-
-                    areaList.Items.Clear();
-                    cmd = new SqlCommand("SELECT * FROM ServiceArea", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["value"].ToString());
-                        areaList.Items.Add(NewItem);
-                    }
-                    areaList.SelectedIndex = selectedIndex;
-                    reader.Close();
-
-                    //populate admin dropdown
-                    selectedIndex = adminList.SelectedIndex;
-
-                    adminList.Items.Clear();
-                    cmd = new SqlCommand("SELECT email FROM Admin", con);
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["email"].ToString());
-                        adminList.Items.Add(NewItem);
-                    }
-                    adminList.SelectedIndex = selectedIndex;
-                    reader.Close();
-                    */
                 }
 
                 catch (Exception err)
                 {
                     lblMessage.Text = null;
-                    lblMessage.Text = "Cannot submit information now. Please try again later.";
+                    //lblMessage.Text = "Cannot submit information now. Please try again later.";
+                    lblMessage.Text = "BREAKING IN POPULATEDATA BTW";
                 }
                 finally
                 {
@@ -439,7 +324,7 @@ namespace Capstone2nd
                     //Session["message"] = "Changes successfully applied!";
                 }
 
-                Index_Change(null, null);
+                //Index_Change(null, null);
             }
         }
 
@@ -477,7 +362,8 @@ namespace Capstone2nd
             catch (Exception err)
             {
                 lblMessage.Text = null;
-                lblMessage.Text = "Cannot submit information now. Please try again later.";
+                //lblMessage.Text = "Cannot submit information now. Please try again later.";
+                lblMessage.Text = "BREAKING IN INDEX CHANGE BTW";
             }
             finally
             {
@@ -501,136 +387,159 @@ namespace Capstone2nd
                 string senderID = clicked.ID;
                 string tableName = "";
                 string value = "";
-                string valName = "";
+                string valName = "value";
+
+                List<string> DBNames = new List<string>();
+                DBNames.Add("FieldOfStudy");
+                DBNames.Add("ManagerRole");
+                DBNames.Add("Grades");
+                DBNames.Add("Residental");
+                DBNames.Add("ProgramCost");
+                DBNames.Add("Stipend");
+                DBNames.Add("Duration");
+                DBNames.Add("Season");
+                DBNames.Add("ServiceArea");
+                DBNames.Add("Admin");
+
+                List<TextBox> newEntries = new List<TextBox>();
+                newEntries.Add(newField);
+                newEntries.Add(newRole);
+                newEntries.Add(newGrade);
+                newEntries.Add(newResidential);
+                newEntries.Add(newCost);
+                newEntries.Add(newStipend);
+                newEntries.Add(newDuration);
+                newEntries.Add(newSeason);
+                newEntries.Add(newArea);
+
+                List<CheckBox> newEntriesActive = new List<CheckBox>();
+                newEntriesActive.Add(newFieldActive);
+                newEntriesActive.Add(newRoleActive);
+                newEntriesActive.Add(newGradeActive);
+                newEntriesActive.Add(newResidentialActive);
+                newEntriesActive.Add(newCostActive);
+                newEntriesActive.Add(newStipendActive);
+                newEntriesActive.Add(newDurationActive);
+                newEntriesActive.Add(newSeasonActive);
+                newEntriesActive.Add(newAreaActive);
+
+                int index = -1;
 
                 if (senderID == "submitNewField")
                 {
-                    tableName = "FieldOfStudy";
-                    value = newField.Text;
-                    valName = "value";
-                    newField.Text = string.Empty;
-
-                    if (newFieldActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 0;
                 }
 
                 else if (senderID == "submitNewRole")
                 {
-                    tableName = "ManagerRole";
-                    value = newRole.Text;
+                    index = 1;
                     valName = "roleName";
-                    newRole.Text = string.Empty;
-                    
-                    if (newRoleActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
                 }
 
                 else if (senderID == "submitNewGrade")
                 {
-                    tableName = "Grades";
-                    value = newGrade.Text;
-                    valName = "value";
-                    newGrade.Text = string.Empty;
-
-                    if (newGradeActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 2;
                 }
 
                 else if (senderID == "submitNewResidential")
                 {
-                    tableName = "Residental";
-                    value = newResidential.Text;
-                    valName = "value";
-                    newResidential.Text = string.Empty;
-
-                    if (newResidentialActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 3;
                 }
 
                 else if (senderID == "submitNewCost")
                 {
-                    tableName = "ProgramCost";
-                    value = newCost.Text;
-                    valName = "value";
-                    newCost.Text = string.Empty;
-
-                    if (newCostActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 4;
                 }
 
                 else if (senderID == "submitNewStipend")
                 {
-                    tableName = "Stipend";
-                    value = newStipend.Text;
-                    valName = "value";
-                    newStipend.Text = string.Empty;
-
-                    if (newStipendActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 5;
                 }
 
                 else if (senderID == "submitNewDuration")
                 {
-                    tableName = "Duration";
-                    value = newDuration.Text;
-                    valName = "value";
-                    newDuration.Text = string.Empty;
-
-                    if (newDurationActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 6;
                 }
 
                 else if (senderID == "submitNewSeason")
                 {
-                    tableName = "Season";
-                    value = newSeason.Text;
-                    valName = "value";
-                    newSeason.Text = string.Empty;
-
-                    if (newSeasonActive.Checked == false)
-                    {
-                        isActive = "inactive";
-                    }
+                    index = 7;
                 }
 
                 else if (senderID == "submitNewArea")
                 {
-                    tableName = "ServiceArea";
-                    value = newArea.Text;
-                    valName = "value";
-                    newArea.Text = string.Empty;
+                    index = 8;
+                }
 
-                    if (newAreaActive.Checked == false)
+                tableName = DBNames[index];
+                value = newEntries[index].Text;
+                newEntries[index].Text = string.Empty;
+                if (newEntriesActive[index].Checked == false)
+                {
+                    isActive = "inactive";
+                }
+
+                bool customOrder = false;
+                //check if we are using custom order
+                string sql = "SELECT * FROM " + tableName;
+                string order = string.Empty;
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        isActive = "inactive";
+                        while (reader.Read())
+                        {
+                            order = reader["order"].ToString();
+                            if (reader["order"].ToString() == "custom")
+                            {
+                                customOrder = true;
+                            }
+                            break;
+                        }
                     }
                 }
 
-                string sql = "INSERT INTO " + tableName + " (" + valName + ", status) values(@value, @isActive);";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add(new SqlParameter("@value", value));
-                cmd.Parameters.Add(new SqlParameter("@isActive", isActive));
-                cmd.ExecuteNonQuery();
+                int endOfList = -1;
+                //if we are using custom ordering, need to find the highest custom order value to insert at the end
+                if (customOrder)
+                {
+                    sql = "SELECT TOP 1 customOrder FROM " + tableName + " ORDER BY customOrder DESC";
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                endOfList = int.Parse(reader["customOrder"].ToString());
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                sql = "INSERT INTO " + tableName + " (" + valName + ", status, \"order\", customOrder) values(@value, @isActive, @order, @custOrder);";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@value", value));
+                    cmd.Parameters.Add(new SqlParameter("@isActive", isActive));
+                    cmd.Parameters.Add(new SqlParameter("@order", order));
+                    if (customOrder)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@custOrder", endOfList + 1));
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@custOrder", "NULL"));
+                    }
+                    cmd.ExecuteNonQuery();
+                }
             }
 
             catch (Exception err)
             {
                 lblMessage.Text = null;
-                lblMessage.Text = "Cannot submit information now. Please try again later.";
+                //lblMessage.Text = "Cannot submit information now. Please try again later.";
+                lblMessage.Text = "BREAKING IN SUBMIT NEW BTW ";
             }
             finally
             {
@@ -808,7 +717,6 @@ namespace Capstone2nd
                 //only put through changes if the empty option (selected by default) is not chosen
                 if (orderType == "custom")
                 {
-                    System.Diagnostics.Debug.WriteLine("ORDERTYPE = CUSTOM");
                     DropDownList customOrderList = customOrderLists[index];
                     if (customOrderList.SelectedValue != String.Empty)
                     {
@@ -828,9 +736,7 @@ namespace Capstone2nd
                                 }
                             }
                         }
-
-                        System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql);
-                        System.Diagnostics.Debug.WriteLine("HERE'S OLDCUST " + oldCustomOrder);
+                        
                         sql = "SELECT * FROM " + tableName;
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
@@ -839,9 +745,7 @@ namespace Capstone2nd
                                 while (reader.Read())
                                 {
                                     int curCustomOrder = int.Parse(reader["customOrder"].ToString());
-                                    System.Diagnostics.Debug.WriteLine("OMG!!!!!");
                                     int curID = int.Parse(reader[primKey].ToString());
-                                    System.Diagnostics.Debug.WriteLine("WUTFACE EMOJI");
 
                                     if (reader[idName].ToString() == value)
                                     {
@@ -849,8 +753,7 @@ namespace Capstone2nd
                                         {
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE " + primKey + " = " + curID + ";";
-
-                                            System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql2);
+                                            
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
@@ -861,7 +764,6 @@ namespace Capstone2nd
                                     else if ((curCustomOrder > oldCustomOrder && curCustomOrder > newCustomOrder) || (curCustomOrder < oldCustomOrder && curCustomOrder < newCustomOrder))
                                     {
                                         //don't need to change anything lol
-
                                     }
                                     else
                                     {
@@ -880,7 +782,6 @@ namespace Capstone2nd
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE " + primKey + " = " + curID + ";";
 
-                                            System.Diagnostics.Debug.WriteLine("HERE'S YOUR QUERY RETARD " + sql2);
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
