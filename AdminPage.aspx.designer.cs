@@ -193,6 +193,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewRole;
         
         /// <summary>
+        /// managerOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList managerOrder;
+        
+        /// <summary>
         /// roleList control.
         /// </summary>
         /// <remarks>
@@ -218,6 +227,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox roleEdit;
+        
+        /// <summary>
+        /// managerCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label managerCustomLbl;
+        
+        /// <summary>
+        /// managerCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList managerCustomOrder;
         
         /// <summary>
         /// roleEditBtn control.

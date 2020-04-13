@@ -60,6 +60,11 @@ namespace Capstone2nd
                     tableName = "FieldOfStudy";
                     idName = "fieldID";
                 }
+                else if (senderID == "managerOrder")
+                {
+                    tableName = "ManagerRole";
+                    idName = "roleID";
+                }
 
                 //last part of the statement simply lets us update everything at once
                 //since every entry should have the same kind of ordering
@@ -173,14 +178,17 @@ namespace Capstone2nd
 
                     List<DropDownList> orderLists = new List<DropDownList>();
                     orderLists.Add(fieldOrder);
+                    orderLists.Add(managerOrder);
 
                     //must make these visible if user selected custom
                     List<Label> customLabels = new List<Label>();
                     customLabels.Add(fieldCustomLbl);
+                    customLabels.Add(managerCustomLbl);
 
                     //custom ordering drop downs
                     List<DropDownList> customLists = new List<DropDownList>();
                     customLists.Add(fieldCustomOrder);
+                    customLists.Add(managerCustomOrder);
 
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
@@ -771,7 +779,6 @@ namespace Capstone2nd
                                                 con2.Close();
                                             }
                                         }
-                                        System.Diagnostics.Debug.WriteLine(newCustomOrder);
                                         populateData(false);
                                     }
                                 }
