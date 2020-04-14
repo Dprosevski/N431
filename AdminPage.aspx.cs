@@ -204,7 +204,7 @@ namespace Capstone2nd
                     primKeys.Add("durationID");
                     primKeys.Add("seasonID");
                     primKeys.Add("serviceAreaID");
-                    primKeys.Add("adminID");
+                    //primKeys.Add("adminID");
 
                     List<DropDownList> orderLists = new List<DropDownList>();
                     orderLists.Add(fieldOrder);
@@ -245,9 +245,18 @@ namespace Capstone2nd
                     {
                         DropDownList list = dropDowns[i];
                         string DBName = DBNames[i];
-                        DropDownList orderList = orderLists[i];
-                        Label customLbl = customLabels[i];
-                        DropDownList customList = customLists[i];
+
+                        DropDownList orderList = null;
+                        Label customLbl = null;
+                        DropDownList customList = null;
+                        if (DBName != "Admin")
+                        {
+                            orderList = orderLists[i];
+                            customLbl = customLabels[i];
+                            customList = customLists[i];
+                        }
+
+                        System.Diagnostics.Debug.WriteLine(DBName);
 
                         string selectedVal = list.SelectedValue;
                         int selectedIndex = list.SelectedIndex;
@@ -269,95 +278,116 @@ namespace Capstone2nd
                             colName = "value";
                         }
 
-                        //generate a SQL query based on ordering scheme
-                        String sql = "SELECT \"order\" FROM " + DBName;
-                        String orderType = String.Empty;
-                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        if (DBName == "Admin")
                         {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            string sql = "SELECT email FROM Admin";
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
                             {
-                                //all "order" entries should be the same so only need to read one
-                                while (reader.Read())
+                                using (SqlDataReader reader = cmd.ExecuteReader())
                                 {
-                                    orderType = reader["order"].ToString();
-                                    break;
-                                }
-                            }
-                            
-                            if (orderType == "custom")
-                            {
-                                string customTxt = customLbl.Text;
-                                string curCustVal = String.Empty;
-                                sql = "SELECT * FROM " + DBName + " WHERE " + colName + " = " + selectedVal;
-
-                                /*
-                                 * custom order labeling stuff:
-                                if (selectedVal != string.Empty)
-                                {
-                                    using (SqlConnection con2 = new SqlConnection(cs))
+                                    while (reader.Read())
                                     {
-                                        con2.Open();
-
-                                        System.Diagnostics.Debug.WriteLine(sql);
-                                        using (SqlCommand cmd2 = new SqlCommand(sql, con2))
-                                        {
-                                            using (SqlDataReader reader = cmd2.ExecuteReader())
-                                            {
-                                                curCustVal = reader["customOrder"].ToString();
-                                            }
-                                            customTxt += ", current position = " + curCustVal;
-                                            customLbl.Text = customTxt;
-                                        }
-                                        con2.Close();
+                                        ListItem newItem = new ListItem(reader[colName].ToString());
+                                        list.Items.Add(newItem);
                                     }
-                                }
-                                */
-                                orderList.SelectedIndex = 2;
-                                customList.Visible = true;
-                                customLbl.Visible = true;
-                                customList.Items.Clear();
-                                customList.Items.Add(new ListItem(String.Empty, String.Empty));
 
-                                sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
-                            }
-
-                            else
-                            {
-                                customList.Visible = false;
-                                customLbl.Visible = false;
-                                if (orderType == "alpha")
-                                {
-                                    orderList.SelectedIndex = 0;
-                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
-                                }
-
-                                //otherwise order by date added aka id
-                                else
-                                {
-                                    orderList.SelectedIndex = 1;
-                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
+                                    list.SelectedIndex = selectedIndex;
                                 }
                             }
                         }
 
-                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        else
                         {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            //generate a SQL query based on ordering scheme
+                            String sql = "SELECT \"order\" FROM " + DBName;
+                            String orderType = String.Empty;
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
                             {
-                                //populate the dropdown
-                                while (reader.Read())
+                                using (SqlDataReader reader = cmd.ExecuteReader())
                                 {
-                                    ListItem newItem = new ListItem(reader[colName].ToString());
-                                    list.Items.Add(newItem);
-
-                                    if (orderType == "custom")
+                                    //all "order" entries should be the same so only need to read one
+                                    while (reader.Read())
                                     {
-                                        customList.Items.Add(reader["customOrder"].ToString());
+                                        orderType = reader["order"].ToString();
+                                        break;
                                     }
                                 }
 
-                                list.SelectedIndex = selectedIndex;
-                                customList.SelectedIndex = 0;
+                                if (orderType == "custom")
+                                {
+                                    string customTxt = customLbl.Text;
+                                    string curCustVal = String.Empty;
+                                    sql = "SELECT * FROM " + DBName + " WHERE " + colName + " = " + selectedVal;
+
+                                    /*
+                                     * custom order labeling stuff:
+                                    if (selectedVal != string.Empty)
+                                    {
+                                        using (SqlConnection con2 = new SqlConnection(cs))
+                                        {
+                                            con2.Open();
+
+                                            System.Diagnostics.Debug.WriteLine(sql);
+                                            using (SqlCommand cmd2 = new SqlCommand(sql, con2))
+                                            {
+                                                using (SqlDataReader reader = cmd2.ExecuteReader())
+                                                {
+                                                    curCustVal = reader["customOrder"].ToString();
+                                                }
+                                                customTxt += ", current position = " + curCustVal;
+                                                customLbl.Text = customTxt;
+                                            }
+                                            con2.Close();
+                                        }
+                                    }
+                                    */
+                                    orderList.SelectedIndex = 2;
+                                    customList.Visible = true;
+                                    customLbl.Visible = true;
+                                    customList.Items.Clear();
+                                    customList.Items.Add(new ListItem(String.Empty, String.Empty));
+
+                                    sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
+                                }
+
+                                else
+                                {
+                                    customList.Visible = false;
+                                    customLbl.Visible = false;
+                                    if (orderType == "alpha")
+                                    {
+                                        orderList.SelectedIndex = 0;
+                                        sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
+                                    }
+
+                                    //otherwise order by date added aka id
+                                    else
+                                    {
+                                        orderList.SelectedIndex = 1;
+                                        sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
+                                    }
+                                }
+                            }
+
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    //populate the dropdown
+                                    while (reader.Read())
+                                    {
+                                        ListItem newItem = new ListItem(reader[colName].ToString());
+                                        list.Items.Add(newItem);
+
+                                        if (orderType == "custom")
+                                        {
+                                            customList.Items.Add(reader["customOrder"].ToString());
+                                        }
+                                    }
+
+                                    list.SelectedIndex = selectedIndex;
+                                    customList.SelectedIndex = 0;
+                                }
                             }
                         }
                     }
@@ -617,7 +647,6 @@ namespace Capstone2nd
                 string senderID = clicked.ID;
                 string tableName = String.Empty;
                 string primKey = String.Empty;
-                System.Diagnostics.Debug.WriteLine(senderID);
 
                 //populate lists to build SQL queries
                 List<string> tableNames = new List<string>();

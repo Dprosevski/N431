@@ -45,7 +45,7 @@
         <asp:Label ID="lblFindAdminID" runat="server" Text="Choose an admin to edit:" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="adminList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:Button ID="editAdminID" runat="server" Text="Edit" UseSubmitBehavior="false" OnClick="editAdminID_Click" Visible ="false"/><br /><br />
-
+        
         <!-- new program field -->
         <hr /><asp:Label runat="server" CssClass="FieldOfStudy" Text="Add new field for programs" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="newField" CssClass="FieldOfStudy" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
