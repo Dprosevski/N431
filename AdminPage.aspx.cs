@@ -65,6 +65,11 @@ namespace Capstone2nd
                     tableName = "ManagerRole";
                     idName = "roleID";
                 }
+                else if (senderID == "gradeOrder")
+                {
+                    tableName = "Grades";
+                    idName = "gradesID";
+                }
 
                 //last part of the statement simply lets us update everything at once
                 //since every entry should have the same kind of ordering
@@ -96,11 +101,6 @@ namespace Capstone2nd
                                 cmd2.ExecuteNonQuery();
                                 cmd2.Parameters.Clear();
                                 con2.Close();
-                            }
-
-                            else
-                            {
-                                System.Diagnostics.Debug.WriteLine("NOT NULL\n\n\n\n\n");
                             }
 
                             cmd.Dispose();
@@ -179,16 +179,19 @@ namespace Capstone2nd
                     List<DropDownList> orderLists = new List<DropDownList>();
                     orderLists.Add(fieldOrder);
                     orderLists.Add(managerOrder);
+                    orderLists.Add(gradeOrder);
 
                     //must make these visible if user selected custom
                     List<Label> customLabels = new List<Label>();
                     customLabels.Add(fieldCustomLbl);
                     customLabels.Add(managerCustomLbl);
+                    customLabels.Add(gradeCustomLbl);
 
                     //custom ordering drop downs
                     List<DropDownList> customLists = new List<DropDownList>();
                     customLists.Add(fieldCustomOrder);
                     customLists.Add(managerCustomOrder);
+                    customLists.Add(gradeCustomOrder);
 
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
@@ -569,6 +572,7 @@ namespace Capstone2nd
                 string senderID = clicked.ID;
                 string tableName = String.Empty;
                 string primKey = String.Empty;
+                System.Diagnostics.Debug.WriteLine(senderID);
 
                 //populate lists to build SQL queries
                 List<string> tableNames = new List<string>();
@@ -623,6 +627,7 @@ namespace Capstone2nd
                 List<DropDownList> customOrderLists = new List<DropDownList>();
                 customOrderLists.Add(fieldCustomOrder);
                 customOrderLists.Add(managerCustomOrder);
+                customOrderLists.Add(gradeCustomOrder);
 
                 List<string> primKeys = new List<string>();
                 primKeys.Add("fieldID");
@@ -656,6 +661,7 @@ namespace Capstone2nd
                 else if (senderID == "gradeEditBtn")
                 {
                     index = 2;
+                    System.Diagnostics.Debug.WriteLine("grade edit btn");
                 }
 
                 else if (senderID == "residentialEditBtn")
@@ -687,9 +693,14 @@ namespace Capstone2nd
                 {
                     index = 8;
                 }
+
+                System.Diagnostics.Debug.WriteLine("DANG!!!!!");
                 tableName = tableNames[index];
+                System.Diagnostics.Debug.WriteLine("-_-!!!!!");
                 value = toEdit[index].SelectedItem.Value;
+                System.Diagnostics.Debug.WriteLine("OK THEN!!!!!");
                 newValue = editValues[index].Text;
+                System.Diagnostics.Debug.WriteLine("SURE!!!!!");
                 editValues[index].Text = string.Empty;
                 primKey = primKeys[index];
                 //newStatus is "inactive" by default
@@ -697,7 +708,10 @@ namespace Capstone2nd
                 {
                     newStatus = "active";
                 }
-                
+
+
+                System.Diagnostics.Debug.WriteLine("WOW!!!");
+
                 //find if this field uses custom ordering
                 sql = "SELECT \"order\" FROM " + tableName;
                 String orderType = String.Empty;
@@ -714,9 +728,13 @@ namespace Capstone2nd
                     }
                 }
 
+
+                System.Diagnostics.Debug.WriteLine("JEEZ!!!!!");
+
                 //only put through changes if the empty option (selected by default) is not chosen
                 if (orderType == "custom")
                 {
+                    System.Diagnostics.Debug.WriteLine("OMG!!!!!");
                     DropDownList customOrderList = customOrderLists[index];
                     if (customOrderList.SelectedValue != String.Empty)
                     {
@@ -725,6 +743,8 @@ namespace Capstone2nd
 
                         //first get the current custom order of the selected entry
                         sql = "SELECT * FROM  " + tableName + " WHERE " + idName + " = '" + value + "'";
+
+                        System.Diagnostics.Debug.WriteLine(sql);
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -753,7 +773,8 @@ namespace Capstone2nd
                                         {
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE " + primKey + " = " + curID + ";";
-                                            
+
+                                            System.Diagnostics.Debug.WriteLine(sql2);
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
@@ -782,6 +803,7 @@ namespace Capstone2nd
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE " + primKey + " = " + curID + ";";
 
+                                            System.Diagnostics.Debug.WriteLine(sql2);
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();

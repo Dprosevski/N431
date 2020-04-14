@@ -87,6 +87,7 @@
             <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
         </asp:DropDownList><br />
 
+        <!-- edit manager -->
         <asp:Label runat="server" Text="Edit a manager role's name and status" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="roleList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="roleActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
@@ -104,12 +105,24 @@
         <asp:CheckBox ID="newGradeActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewGrade" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit grade order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="gradeOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit grade -->
         <asp:Label runat="server" Text="Edit an eligible grade" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="gradeList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="gradeActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit grade" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="gradeEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="gradeCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="gradeCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="gradeEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
 
         <!-- new residential option -->
