@@ -373,6 +373,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewResidential;
         
         /// <summary>
+        /// residentialOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList residentialOrder;
+        
+        /// <summary>
         /// residentialList control.
         /// </summary>
         /// <remarks>
@@ -398,6 +407,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox residentialEdit;
+        
+        /// <summary>
+        /// residentialCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label residentialCustomLbl;
+        
+        /// <summary>
+        /// residentialCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList residentialCustomOrder;
         
         /// <summary>
         /// residentialEditBtn control.
@@ -436,6 +463,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewCost;
         
         /// <summary>
+        /// costOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList costOrder;
+        
+        /// <summary>
         /// costList control.
         /// </summary>
         /// <remarks>
@@ -461,6 +497,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox costEdit;
+        
+        /// <summary>
+        /// costCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label costCustomLbl;
+        
+        /// <summary>
+        /// costCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList costCustomOrder;
         
         /// <summary>
         /// costEditBtn control.
@@ -499,6 +553,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewStipend;
         
         /// <summary>
+        /// stipendOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList stipendOrder;
+        
+        /// <summary>
         /// stipendList control.
         /// </summary>
         /// <remarks>
@@ -524,6 +587,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox stipendEdit;
+        
+        /// <summary>
+        /// stipendCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label stipendCustomLbl;
+        
+        /// <summary>
+        /// stipendCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList stipendCustomOrder;
         
         /// <summary>
         /// stipendEditBtn control.
@@ -562,6 +643,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewDuration;
         
         /// <summary>
+        /// durationOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList durationOrder;
+        
+        /// <summary>
         /// durationList control.
         /// </summary>
         /// <remarks>
@@ -587,6 +677,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox durationEdit;
+        
+        /// <summary>
+        /// durationCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label durationCustomLbl;
+        
+        /// <summary>
+        /// durationCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList durationCustomOrder;
         
         /// <summary>
         /// durationEditBtn control.
@@ -625,6 +733,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewSeason;
         
         /// <summary>
+        /// seasonOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList seasonOrder;
+        
+        /// <summary>
         /// seasonList control.
         /// </summary>
         /// <remarks>
@@ -650,6 +767,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox seasonEdit;
+        
+        /// <summary>
+        /// seasonCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label seasonCustomLbl;
+        
+        /// <summary>
+        /// seasonCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList seasonCustomOrder;
         
         /// <summary>
         /// seasonEditBtn control.
@@ -688,6 +823,15 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button submitNewArea;
         
         /// <summary>
+        /// areaOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList areaOrder;
+        
+        /// <summary>
         /// areaList control.
         /// </summary>
         /// <remarks>
@@ -713,6 +857,24 @@ namespace Capstone2nd {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox areaEdit;
+        
+        /// <summary>
+        /// areaCustomLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label areaCustomLbl;
+        
+        /// <summary>
+        /// areaCustomOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList areaCustomOrder;
         
         /// <summary>
         /// areaEditBtn control.

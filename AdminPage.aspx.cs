@@ -70,6 +70,36 @@ namespace Capstone2nd
                     tableName = "Grades";
                     idName = "gradesID";
                 }
+                else if (senderID == "residentialOrder")
+                {
+                    tableName = "Residental";
+                    idName = "resiID";
+                }
+                else if (senderID == "costOrder")
+                {
+                    tableName = "ProgramCost";
+                    idName = "ProgramCostID";
+                }
+                else if (senderID == "stipendOrder")
+                {
+                    tableName = "Stipend";
+                    idName = "stipendID";
+                }
+                else if (senderID == "durationOrder")
+                {
+                    tableName = "Duration";
+                    idName = "durationID";
+                }
+                else if (senderID == "seasonOrder")
+                {
+                    tableName = "Season";
+                    idName = "seasonID";
+                }
+                else if (senderID == "areaOrder")
+                {
+                    tableName = "ServiceArea";
+                    idName = "serviceAreaID";
+                }
 
                 //last part of the statement simply lets us update everything at once
                 //since every entry should have the same kind of ordering
@@ -180,18 +210,36 @@ namespace Capstone2nd
                     orderLists.Add(fieldOrder);
                     orderLists.Add(managerOrder);
                     orderLists.Add(gradeOrder);
+                    orderLists.Add(residentialOrder);
+                    orderLists.Add(costOrder);
+                    orderLists.Add(stipendOrder);
+                    orderLists.Add(durationOrder);
+                    orderLists.Add(seasonOrder);
+                    orderLists.Add(areaOrder);
 
                     //must make these visible if user selected custom
                     List<Label> customLabels = new List<Label>();
                     customLabels.Add(fieldCustomLbl);
                     customLabels.Add(managerCustomLbl);
                     customLabels.Add(gradeCustomLbl);
+                    customLabels.Add(residentialCustomLbl);
+                    customLabels.Add(costCustomLbl);
+                    customLabels.Add(stipendCustomLbl);
+                    customLabels.Add(durationCustomLbl);
+                    customLabels.Add(seasonCustomLbl);
+                    customLabels.Add(areaCustomLbl);
 
                     //custom ordering drop downs
                     List<DropDownList> customLists = new List<DropDownList>();
                     customLists.Add(fieldCustomOrder);
                     customLists.Add(managerCustomOrder);
                     customLists.Add(gradeCustomOrder);
+                    customLists.Add(residentialCustomOrder);
+                    customLists.Add(costCustomOrder);
+                    customLists.Add(stipendCustomOrder);
+                    customLists.Add(durationCustomOrder);
+                    customLists.Add(seasonCustomOrder);
+                    customLists.Add(areaCustomOrder);
 
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
@@ -318,8 +366,7 @@ namespace Capstone2nd
                 catch (Exception err)
                 {
                     lblMessage.Text = null;
-                    //lblMessage.Text = "Cannot submit information now. Please try again later.";
-                    lblMessage.Text = "BREAKING IN POPULATEDATA BTW";
+                    lblMessage.Text = "Cannot submit information now. Please try again later.";
                 }
                 finally
                 {
@@ -365,8 +412,7 @@ namespace Capstone2nd
             catch (Exception err)
             {
                 lblMessage.Text = null;
-                //lblMessage.Text = "Cannot submit information now. Please try again later.";
-                lblMessage.Text = "BREAKING IN INDEX CHANGE BTW";
+                lblMessage.Text = "Cannot submit information now. Please try again later.";
             }
             finally
             {
@@ -541,8 +587,7 @@ namespace Capstone2nd
             catch (Exception err)
             {
                 lblMessage.Text = null;
-                //lblMessage.Text = "Cannot submit information now. Please try again later.";
-                lblMessage.Text = "BREAKING IN SUBMIT NEW BTW ";
+                lblMessage.Text = "Cannot submit information now. Please try again later.";
             }
             finally
             {
@@ -596,7 +641,6 @@ namespace Capstone2nd
                 toEdit.Add(stipendList);
                 toEdit.Add(durationList);
                 toEdit.Add(seasonList);
-                toEdit.Add(stipendList);
                 toEdit.Add(areaList);
 
                 List<TextBox> editValues = new List<TextBox>();
@@ -608,7 +652,6 @@ namespace Capstone2nd
                 editValues.Add(stipendEdit);
                 editValues.Add(durationEdit);
                 editValues.Add(seasonEdit);
-                editValues.Add(stipendEdit);
                 editValues.Add(areaEdit);
 
                 List<CheckBox> activeBoxes = new List<CheckBox>();
@@ -620,7 +663,6 @@ namespace Capstone2nd
                 activeBoxes.Add(stipendActive);
                 activeBoxes.Add(durationActive);
                 activeBoxes.Add(seasonActive);
-                activeBoxes.Add(stipendActive);
                 activeBoxes.Add(areaActive);
 
                 //used in custom ordering
@@ -628,6 +670,12 @@ namespace Capstone2nd
                 customOrderLists.Add(fieldCustomOrder);
                 customOrderLists.Add(managerCustomOrder);
                 customOrderLists.Add(gradeCustomOrder);
+                customOrderLists.Add(residentialCustomOrder);
+                customOrderLists.Add(costCustomOrder);
+                customOrderLists.Add(stipendCustomOrder);
+                customOrderLists.Add(durationCustomOrder);
+                customOrderLists.Add(seasonCustomOrder);
+                customOrderLists.Add(areaCustomOrder);
 
                 List<string> primKeys = new List<string>();
                 primKeys.Add("fieldID");
@@ -693,14 +741,9 @@ namespace Capstone2nd
                 {
                     index = 8;
                 }
-
-                System.Diagnostics.Debug.WriteLine("DANG!!!!!");
+                
                 tableName = tableNames[index];
-                System.Diagnostics.Debug.WriteLine("-_-!!!!!");
                 value = toEdit[index].SelectedItem.Value;
-                System.Diagnostics.Debug.WriteLine("OK THEN!!!!!");
-                newValue = editValues[index].Text;
-                System.Diagnostics.Debug.WriteLine("SURE!!!!!");
                 editValues[index].Text = string.Empty;
                 primKey = primKeys[index];
                 //newStatus is "inactive" by default
@@ -708,10 +751,7 @@ namespace Capstone2nd
                 {
                     newStatus = "active";
                 }
-
-
-                System.Diagnostics.Debug.WriteLine("WOW!!!");
-
+                
                 //find if this field uses custom ordering
                 sql = "SELECT \"order\" FROM " + tableName;
                 String orderType = String.Empty;
@@ -728,13 +768,9 @@ namespace Capstone2nd
                     }
                 }
 
-
-                System.Diagnostics.Debug.WriteLine("JEEZ!!!!!");
-
                 //only put through changes if the empty option (selected by default) is not chosen
                 if (orderType == "custom")
                 {
-                    System.Diagnostics.Debug.WriteLine("OMG!!!!!");
                     DropDownList customOrderList = customOrderLists[index];
                     if (customOrderList.SelectedValue != String.Empty)
                     {

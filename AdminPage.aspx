@@ -46,7 +46,6 @@
         <asp:DropDownList ID="adminList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:Button ID="editAdminID" runat="server" Text="Edit" UseSubmitBehavior="false" OnClick="editAdminID_Click" Visible ="false"/><br /><br />
 
-
         <!-- new program field -->
         <hr /><asp:Label runat="server" CssClass="FieldOfStudy" Text="Add new field for programs" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="newField" CssClass="FieldOfStudy" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
@@ -131,12 +130,24 @@
         <asp:CheckBox ID="newResidentialActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewResidential" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit residential order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="residentialOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit residential option -->
         <asp:Label runat="server" Text="Edit a residential option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="residentialList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="residentialActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit residential value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="residentialEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+       
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="residentialCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="residentialCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="residentialEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new cost option -->
@@ -145,12 +156,24 @@
         <asp:CheckBox ID="newCostActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewCost" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit cost order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="costOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit cost -->
         <asp:Label runat="server" Text="Edit a cost option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="costList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="costActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit cost value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="costEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="costCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="costCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="costEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new stipend value -->
@@ -159,12 +182,24 @@
         <asp:CheckBox ID="newStipendActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewStipend" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit stipend order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="stipendOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit stipend -->
         <asp:Label runat="server" Text="Edit a stipend option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="stipendList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="stipendActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit stipend value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="stipendEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="stipendCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="stipendCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="stipendEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new duration option-->
@@ -173,12 +208,24 @@
         <asp:CheckBox ID="newDurationActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewDuration" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit duration order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="durationOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit duration -->
         <asp:Label runat="server" Text="Edit a duration option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="durationList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="durationActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit duration value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="durationEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="durationCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="durationCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="durationEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new season option-->
@@ -187,12 +234,24 @@
         <asp:CheckBox ID="newSeasonActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewSeason" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit season order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="seasonOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit season -->
         <asp:Label runat="server" Text="Edit a season option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="seasonList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="seasonActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit season value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="seasonEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="seasonCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="seasonCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="seasonEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
         
         <!-- new service area -->
@@ -201,12 +260,24 @@
         <asp:CheckBox ID="newAreaActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" />
         <asp:Button CssClass="btn btn-secondary" ID="submitNewArea" OnClick="submitNew" runat="server" AutoPostBack="true" Text="Submit"/><br />
         
+        <!-- edit area order-->
+        <asp:Label runat="server" Text="Edit the ordering style for the dropdown list" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="areaOrder" OnSelectedIndexChanged="Change_Order" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="alpha">Alphabetical</asp:ListItem>
+            <asp:ListItem Value="ID">By Date Added</asp:ListItem>
+            <asp:ListItem Value="custom">Custom Ordering</asp:ListItem>
+        </asp:DropDownList><br />
+
         <!-- edit service area -->
         <asp:Label runat="server" Text="Edit a service area option" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="areaList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:CheckBox ID="areaActive" runat="server" ForeColor="Black" Font-Size="10pt" Text="Active" /><br />
         <asp:Label runat="server" Text="Edit service area value" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:TextBox ID="areaEdit" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        
+        <!-- custom ordering fields are hidden by default -->
+        <asp:Label ID="areaCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <asp:DropDownList ID="areaCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="areaEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
     </form>
 </body>
