@@ -188,6 +188,9 @@ namespace Capstone2nd
                 cmd.Parameters.Add(new SqlParameter("@registerDate", currentTime));
                 cmd.Parameters.Add(new SqlParameter("@rndCode", strCodeForm));
                 cmd.ExecuteNonQuery();
+
+                submissionComplete.Text = "Thank you for submitting. Please wait for an admin to approve your submission. You will receive an email when this has happened."; ;
+                submissionComplete.Visible = true;
             }
             catch (Exception err)
             {
@@ -197,7 +200,7 @@ namespace Capstone2nd
             }
             finally
             {
-                lblMessage.Text = "User has been registered!";
+                //lblMessage.Text = "User has been registered!";
                 con.Close();
             }
         }

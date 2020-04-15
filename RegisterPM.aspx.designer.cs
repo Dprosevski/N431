@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Capstone2nd
-{
-
-
-    public partial class RegisterPM
-    {
-
+namespace Capstone2nd {
+    
+    
+    public partial class RegisterPM {
+        
         /// <summary>
         /// naviation control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Capstone2nd.Navigation naviation;
-
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// lblMessage control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-
+        
         /// <summary>
         /// lblRole control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRole;
-
+        
         /// <summary>
         /// role control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList role;
-
+        
         /// <summary>
         /// lblOtherRole control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOtherRole;
-
+        
         /// <summary>
         /// otherRole control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox otherRole;
-
+        
         /// <summary>
         /// lblPrefix control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPrefix;
-
+        
         /// <summary>
         /// prefix control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox prefix;
-
+        
         /// <summary>
         /// lblFirst control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFirst;
-
+        
         /// <summary>
         /// first control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox first;
-
+        
         /// <summary>
         /// firstNameValid control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator firstNameValid;
-
+        
         /// <summary>
         /// lblMiddle control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMiddle;
-
+        
         /// <summary>
         /// middle control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox middle;
-
+        
         /// <summary>
         /// lblLast control.
         /// </summary>
@@ -148,7 +146,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLast;
-
+        
         /// <summary>
         /// last control.
         /// </summary>
@@ -157,7 +155,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox last;
-
+        
         /// <summary>
         /// lastNameValid control.
         /// </summary>
@@ -166,7 +164,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator lastNameValid;
-
+        
         /// <summary>
         /// lblSufix control.
         /// </summary>
@@ -175,7 +173,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSufix;
-
+        
         /// <summary>
         /// sufix control.
         /// </summary>
@@ -184,7 +182,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox sufix;
-
+        
         /// <summary>
         /// lblEmail control.
         /// </summary>
@@ -193,7 +191,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEmail;
-
+        
         /// <summary>
         /// email control.
         /// </summary>
@@ -202,7 +200,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox email;
-
+        
         /// <summary>
         /// reqEmail control.
         /// </summary>
@@ -211,7 +209,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqEmail;
-
+        
         /// <summary>
         /// regexEmail control.
         /// </summary>
@@ -220,7 +218,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexEmail;
-
+        
         /// <summary>
         /// lblConfirmEmail control.
         /// </summary>
@@ -229,7 +227,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConfirmEmail;
-
+        
         /// <summary>
         /// confirmEmail control.
         /// </summary>
@@ -238,7 +236,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox confirmEmail;
-
+        
         /// <summary>
         /// reqConfEmail control.
         /// </summary>
@@ -247,7 +245,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqConfEmail;
-
+        
         /// <summary>
         /// compEmail control.
         /// </summary>
@@ -256,7 +254,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator compEmail;
-
+        
         /// <summary>
         /// lblPassword control.
         /// </summary>
@@ -265,7 +263,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPassword;
-
+        
         /// <summary>
         /// pass control.
         /// </summary>
@@ -274,7 +272,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox pass;
-
+        
         /// <summary>
         /// reqPassword control.
         /// </summary>
@@ -283,7 +281,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqPassword;
-
+        
         /// <summary>
         /// regexPassword control.
         /// </summary>
@@ -292,7 +290,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexPassword;
-
+        
         /// <summary>
         /// lblconfirmPass control.
         /// </summary>
@@ -301,7 +299,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblconfirmPass;
-
+        
         /// <summary>
         /// confirmPass control.
         /// </summary>
@@ -310,7 +308,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox confirmPass;
-
+        
         /// <summary>
         /// reqConfPassword control.
         /// </summary>
@@ -319,7 +317,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqConfPassword;
-
+        
         /// <summary>
         /// compPass control.
         /// </summary>
@@ -328,7 +326,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator compPass;
-
+        
         /// <summary>
         /// lblAltEmail control.
         /// </summary>
@@ -337,7 +335,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAltEmail;
-
+        
         /// <summary>
         /// altEmail control.
         /// </summary>
@@ -346,7 +344,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox altEmail;
-
+        
         /// <summary>
         /// regexAltEmail control.
         /// </summary>
@@ -355,7 +353,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexAltEmail;
-
+        
         /// <summary>
         /// lblPhone control.
         /// </summary>
@@ -364,7 +362,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPhone;
-
+        
         /// <summary>
         /// phone control.
         /// </summary>
@@ -373,7 +371,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox phone;
-
+        
         /// <summary>
         /// ValidationSummary control.
         /// </summary>
@@ -382,7 +380,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary;
-
+        
         /// <summary>
         /// btnSubmit control.
         /// </summary>
@@ -391,7 +389,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-
+        
         /// <summary>
         /// form2 control.
         /// </summary>
@@ -400,7 +398,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-
+        
         /// <summary>
         /// output control.
         /// </summary>
@@ -409,7 +407,7 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label output;
-
+        
         /// <summary>
         /// Confirm control.
         /// </summary>
@@ -418,7 +416,16 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Confirm;
-
+        
+        /// <summary>
+        /// submissionComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label submissionComplete;
+        
         /// <summary>
         /// footer control.
         /// </summary>

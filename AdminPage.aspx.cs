@@ -243,6 +243,29 @@ namespace Capstone2nd
                     customLists.Add(seasonCustomOrder);
                     customLists.Add(areaCustomOrder);
 
+                    //program manager dropdowns
+                    string sql = "SELECT * FROM ProgramManager";
+                    approvedManagers.Items.Clear();
+                    unapprovedManagers.Items.Clear();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ListItem newItem = new ListItem(reader["email"].ToString());
+                                if (reader["approved"].ToString() == "no")
+                                {
+                                    unapprovedManagers.Items.Add(newItem);
+                                }
+                                else
+                                {
+                                    approvedManagers.Items.Add(newItem);
+                                }
+                            }
+                        }
+                    }
+
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
                         DropDownList list = dropDowns[i];
@@ -257,8 +280,6 @@ namespace Capstone2nd
                             customLbl = customLabels[i];
                             customList = customLists[i];
                         }
-
-                        System.Diagnostics.Debug.WriteLine(DBName);
 
                         string selectedVal = list.SelectedValue;
                         int selectedIndex = list.SelectedIndex;
@@ -282,7 +303,7 @@ namespace Capstone2nd
 
                         if (DBName == "Admin")
                         {
-                            string sql = "SELECT email FROM Admin";
+                            sql = "SELECT email FROM Admin";
                             using (SqlCommand cmd = new SqlCommand(sql, con))
                             {
                                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -301,7 +322,7 @@ namespace Capstone2nd
                         else
                         {
                             //generate a SQL query based on ordering scheme
-                            String sql = "SELECT \"order\" FROM " + DBName;
+                            sql = "SELECT \"order\" FROM " + DBName;
                             String orderType = String.Empty;
                             using (SqlCommand cmd = new SqlCommand(sql, con))
                             {
@@ -629,6 +650,50 @@ namespace Capstone2nd
             populateData(true);
         }
 
+        protected void editManager (object sender, EventArgs e)
+        {
+            Button senderBtn = sender as Button;
+            string senderID = senderBtn.ID;
+            string email = String.Empty;
+            string sql = String.Empty;
+
+            if (senderID == "approveManagerBtn")
+            {
+                email = unapprovedManagers.SelectedValue.ToString();
+                sql = "UPDATE ProgramManager SET approved = 'yes' WHERE email = @email";
+            }
+
+            else
+            {
+                email = approvedManagers.SelectedValue.ToString();
+                sql = "UPDATE ProgramManager SET approved = 'no' WHERE email = @email";
+            }
+
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            //populate the dropdown lists 
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@email", email));
+                    cmd.ExecuteNonQuery();
+                }
+
+                con.Close();
+            }
+
+            catch (Exception err)
+            {
+                Response.Write("<script>alert(\"" + err.Message + "\");</script>");
+                Response.Write(err.Message);
+            }
+
+            populateData(true);
+        }
+
         protected void editSelected(object sender, EventArgs e)
         {
             string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
@@ -810,8 +875,7 @@ namespace Capstone2nd
 
                         //first get the current custom order of the selected entry
                         sql = "SELECT * FROM  " + tableName + " WHERE " + idName + " = '" + value + "'";
-
-                        System.Diagnostics.Debug.WriteLine(sql);
+                        
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
