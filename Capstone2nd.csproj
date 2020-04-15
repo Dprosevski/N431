@@ -93,6 +93,7 @@
     <Content Include="Register.aspx" />
     <Content Include="RegisterPM.aspx" />
     <Content Include="RegisterGuest.aspx" />
+    <Content Include="SearchResult.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,13 @@
     </Compile>
     <Compile Include="RegisterGuest.aspx.designer.cs">
       <DependentUpon>RegisterGuest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchResult.aspx.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResult.aspx.designer.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

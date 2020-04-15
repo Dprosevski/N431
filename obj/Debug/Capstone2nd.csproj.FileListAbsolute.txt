@@ -225,11 +225,11 @@ C:\Users\dpros\Desktop\GitN431\bin\roslyn\VBCSCompiler.exe
 C:\Users\dpros\Desktop\GitN431\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\dpros\Desktop\GitN431\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\dpros\Desktop\GitN431\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csprojAssemblyReference.cache
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csproj.CopyComplete
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.dll
 C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.pdb
 C:\Users\dpros\Desktop\GitN431\bin\AjaxControlToolkit.dll
+<<<<<<< HEAD
 D:\School\asp.net class\N431\bin\Capstone2nd.dll.config
 D:\School\asp.net class\N431\bin\Capstone2nd.dll
 D:\School\asp.net class\N431\bin\Capstone2nd.pdb
@@ -289,3 +289,6 @@ D:\School\asp.net class\N431\obj\Debug\Capstone2nd.csproj.CoreCompileInputs.cach
 D:\School\asp.net class\N431\obj\Debug\Capstone2nd.csproj.CopyComplete
 D:\School\asp.net class\N431\obj\Debug\Capstone2nd.dll
 D:\School\asp.net class\N431\obj\Debug\Capstone2nd.pdb
+=======
+C:\Users\dpros\Desktop\GitN431\obj\Debug\Capstone2nd.csprojAssemblyReference.cache
+>>>>>>> 58dc89b920c23461b08dbdfcd7f6443e61c684ce

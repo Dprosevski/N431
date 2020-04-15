@@ -1,35 +1,35 @@
 ﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Capstone2nd.Default" %>
 <%@ Register TagPrefix="general" TagName="Nav" Src="Navigation.ascx" %>
+<%@ Register TagPrefix="general" TagName="Footer" Src="Footer.ascx" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head runat="server">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Home Page</title>
+    <title>Home Page</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/grayscale.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/myCss.css" rel="stylesheet">
-
 </head>
-    
+
 <body id="page-top">
     <!-- Navigation -->
-    <general:Nav ID="naviation" runat="server" />
+    <general:nav id="naviation" runat="server" />
 
     <!-- Header -->
     <header class="masthead">
@@ -39,12 +39,12 @@
         </div>
     </header>
 
-       <!-- About Section -->
+    <!-- About Section -->
     <section id="about" class="about-section text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <form id="form1"  runat="server">
+                    <form action="Default.aspx">
                         <asp:Label ID="lblHello" runat="server" Text="Hello" Font-Size="30" ForeColor="White"></asp:Label>
                     </form>
                     <h2 class="text-white mb-4"></h2>
@@ -54,61 +54,78 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects-section bg-light">
-        <div class="container">
 
-            <!-- Featured Project Row -->
-            <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-8 col-lg-7">
-                    <img class="img-fluid mb-3 mb-lg-0" src="img/bg-masthead.jpg" alt="">
-                </div>
-                <div class="col-xl-4 col-lg-5">
-                    <div class="featured-text text-center text-lg-left">
-                        <h4>Shoreline</h4>
-                        <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Project One Row -->
-            <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="img/demo-image-01.jpg" alt="">
-                </div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Misty</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                <hr class="d-none d-lg-block mb-0 ml-0">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Project Two Row -->
-            <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="img/demo-image-02.jpg" alt="">
-                </div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
-                                <hr class="d-none d-lg-block mb-0 mr-0">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+
+
+
+
+
+
+
+
+
+    <!-- Start of Main Content Area -->
+
+    <div id="main_content">
+
+        <!-- Start of Registration -->
+
+        <div id="registration">
+
+            <form id="Form2" runat="server">
+
+                <div id="registration_info">
+                    <h1>Search Programs</h1>
+                    <br />
+                    <asp:Label ID="lblMessage" Height="40px" Font-Size="18px" ForeColor="Red" runat="server" />
+                    <h2>Please enter the information below:</h2>
+                </div>
+
+
+
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblName" runat="server">Name Contains:</asp:Label>
+                        </td>
+                        <td>
+                                <asp:TextBox ID="name" MaxLength="50" Width="300" Height="20" Text="" runat="server" Font-Size="12"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
+
+                <!--Button for Submitting the Form-->
+                <hr />
+                <asp:Button CssClass="btn btn-primary" ID="btnSubmit" runat="server" Text="Submit" UseSubmitBehavior="true" OnClick="BtnSubmit_Click" />
+
+
+
+            </form>
+
+            <div class="clearthis">&nbsp;</div>
         </div>
-    </section>
+    </div>
+	<!-- End of Main Content Area -->
+    <div class="clearthis">&nbsp;</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Login Section -->
     <section id="signup" class="signup-section">
@@ -183,21 +200,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black small text-center text-white-50">
-        <div class="container">
-            Copyright &copy; Your Website 2019
-        </div>
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="js/grayscale.min.js"></script>
+    <general:footer id="footer" runat="server" />
 
 </body>
 

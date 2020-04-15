@@ -5,6 +5,11 @@ select * from Admin;
 select * from Program;
 select * from ContactPerson;
 
+SELECT * FROM Program WHERE Lower(name) LIKE '%claudia%';
+SELECT COUNT(*) FROM Program WHERE Lower(name) LIKE '%claudia%';
+UPDATE Program SET name =  'Claudia' WHERE name =  'Driscoll Molina';
+
+
 select * from FieldOfStudy;
 select * from Duration;
 select * from Grades;

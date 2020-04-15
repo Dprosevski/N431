@@ -1,9 +1,3 @@
-
-admin page:
-change to drop down to edit admin
-
-
-
 fixes
 admin page maintenance options (ordering inputs) 4
 registration page  1 1 1 1 (delete extra TB) Dimitrije
