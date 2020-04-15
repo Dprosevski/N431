@@ -105,7 +105,7 @@ namespace Capstone2nd
 
                 //last part of the statement simply lets us update everything at once
                 //since every entry should have the same kind of ordering
-                String sql = "UPDATE " + tableName + " SET \"order\" = @order WHERE @idName IS NOT NULL;";
+                String sql = "UPDATE " + tableName + " SET myOrder = @order WHERE @idName IS NOT NULL;";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add(new SqlParameter("@order", newOrder));
                 cmd.Parameters.Add(new SqlParameter("@idName", idName));
@@ -179,7 +179,6 @@ namespace Capstone2nd
                     dropDowns.Add(durationList);
                     dropDowns.Add(seasonList);
                     dropDowns.Add(areaList);
-                    dropDowns.Add(adminList);
 
                     //need to add each DB name to a list as well
                     //be mindful of order
@@ -193,7 +192,6 @@ namespace Capstone2nd
                     DBNames.Add("Duration");
                     DBNames.Add("Season");
                     DBNames.Add("ServiceArea");
-                    DBNames.Add("Admin");
 
                     //store primary keys for if we're sorting by date
                     List<string> primKeys = new List<string>();
@@ -265,6 +263,18 @@ namespace Capstone2nd
                             }
                         }
                     }
+                    sql = "SELECT * FROM Admin";
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ListItem newItem = new ListItem(reader["email"].ToString());
+                                adminList.Items.Add(newItem);
+                            }
+                        }
+                    }
 
                     for (int i = 0; i < dropDowns.Count; i++)
                     {
@@ -300,119 +310,100 @@ namespace Capstone2nd
                         {
                             colName = "value";
                         }
-
-                        if (DBName == "Admin")
+                        
+                        //generate a SQL query based on ordering scheme
+                        sql = "SELECT myOrder FROM " + DBName;
+                        String orderType = String.Empty;
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
-                            sql = "SELECT email FROM Admin";
-                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                //all "order" entries should be the same so only need to read one
+                                while (reader.Read())
                                 {
-                                    while (reader.Read())
-                                    {
-                                        ListItem newItem = new ListItem(reader[colName].ToString());
-                                        list.Items.Add(newItem);
-                                    }
-
-                                    list.SelectedIndex = selectedIndex;
+                                    orderType = reader["myOrder"].ToString();
+                                    break;
                                 }
                             }
-                        }
 
-                        else
-                        {
-                            //generate a SQL query based on ordering scheme
-                            sql = "SELECT \"order\" FROM " + DBName;
-                            String orderType = String.Empty;
-                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            if (orderType == "custom")
                             {
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    //all "order" entries should be the same so only need to read one
-                                    while (reader.Read())
-                                    {
-                                        orderType = reader["order"].ToString();
-                                        break;
-                                    }
-                                }
+                                string customTxt = customLbl.Text;
+                                string curCustVal = String.Empty;
+                                sql = "SELECT * FROM " + DBName + " WHERE " + colName + " = " + selectedVal;
 
-                                if (orderType == "custom")
+                                /*
+                                    * custom order labeling stuff:
+                                if (selectedVal != string.Empty)
                                 {
-                                    string customTxt = customLbl.Text;
-                                    string curCustVal = String.Empty;
-                                    sql = "SELECT * FROM " + DBName + " WHERE " + colName + " = " + selectedVal;
-
-                                    /*
-                                     * custom order labeling stuff:
-                                    if (selectedVal != string.Empty)
+                                    using (SqlConnection con2 = new SqlConnection(cs))
                                     {
-                                        using (SqlConnection con2 = new SqlConnection(cs))
+                                        con2.Open();
+
+                                        System.Diagnostics.Debug.WriteLine(sql);
+                                        using (SqlCommand cmd2 = new SqlCommand(sql, con2))
                                         {
-                                            con2.Open();
-
-                                            System.Diagnostics.Debug.WriteLine(sql);
-                                            using (SqlCommand cmd2 = new SqlCommand(sql, con2))
+                                            using (SqlDataReader reader = cmd2.ExecuteReader())
                                             {
-                                                using (SqlDataReader reader = cmd2.ExecuteReader())
-                                                {
-                                                    curCustVal = reader["customOrder"].ToString();
-                                                }
-                                                customTxt += ", current position = " + curCustVal;
-                                                customLbl.Text = customTxt;
+                                                curCustVal = reader["customOrder"].ToString();
                                             }
-                                            con2.Close();
+                                            customTxt += ", current position = " + curCustVal;
+                                            customLbl.Text = customTxt;
                                         }
+                                        con2.Close();
                                     }
-                                    */
-                                    orderList.SelectedIndex = 2;
-                                    customList.Visible = true;
-                                    customLbl.Visible = true;
-                                    customList.Items.Clear();
-                                    customList.Items.Add(new ListItem(String.Empty, String.Empty));
+                                }
+                                */
+                                orderList.SelectedIndex = 2;
+                                customList.Visible = true;
+                                customLbl.Visible = true;
+                                customList.Items.Clear();
+                                customList.Items.Add(new ListItem(String.Empty, String.Empty));
 
-                                    sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
+                                sql = "SELECT * FROM " + DBName + " ORDER BY customOrder";
+                            }
+
+                            else
+                            {
+                                customList.Visible = false;
+                                customLbl.Visible = false;
+                                if (orderType == "alpha")
+                                {
+                                    orderList.SelectedIndex = 0;
+                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
                                 }
 
+                                //otherwise order by date added aka id
                                 else
                                 {
-                                    customList.Visible = false;
-                                    customLbl.Visible = false;
-                                    if (orderType == "alpha")
-                                    {
-                                        orderList.SelectedIndex = 0;
-                                        sql = "SELECT * FROM " + DBName + " ORDER BY " + colName;
-                                    }
-
-                                    //otherwise order by date added aka id
-                                    else
-                                    {
-                                        orderList.SelectedIndex = 1;
-                                        sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
-                                    }
-                                }
-                            }
-
-                            using (SqlCommand cmd = new SqlCommand(sql, con))
-                            {
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    //populate the dropdown
-                                    while (reader.Read())
-                                    {
-                                        ListItem newItem = new ListItem(reader[colName].ToString());
-                                        list.Items.Add(newItem);
-
-                                        if (orderType == "custom")
-                                        {
-                                            customList.Items.Add(reader["customOrder"].ToString());
-                                        }
-                                    }
-
-                                    list.SelectedIndex = selectedIndex;
-                                    customList.SelectedIndex = 0;
+                                    orderList.SelectedIndex = 1;
+                                    sql = "SELECT * FROM " + DBName + " ORDER BY " + primKeys[i];
                                 }
                             }
                         }
+
+                        System.Diagnostics.Debug.WriteLine(sql);
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                //populate the dropdown
+                                while (reader.Read())
+                                {
+                                    ListItem newItem = new ListItem(reader[colName].ToString());
+                                    list.Items.Add(newItem);
+
+                                    if (orderType == "custom")
+                                    {
+                                        customList.Items.Add(reader["customOrder"].ToString());
+                                    }
+                                }
+
+                                list.SelectedIndex = selectedIndex;
+                                customList.SelectedIndex = 0;
+                            }
+                        }
+                        
                     }
                 }
 
@@ -591,8 +582,8 @@ namespace Capstone2nd
                     {
                         while (reader.Read())
                         {
-                            order = reader["order"].ToString();
-                            if (reader["order"].ToString() == "custom")
+                            order = reader["myOrder"].ToString();
+                            if (reader["myOrder"].ToString() == "custom")
                             {
                                 customOrder = true;
                             }
@@ -619,7 +610,7 @@ namespace Capstone2nd
                     }
                 }
                 
-                sql = "INSERT INTO " + tableName + " (" + valName + ", status, \"order\", customOrder) values(@value, @isActive, @order, @custOrder);";
+                sql = "INSERT INTO " + tableName + " (" + valName + ", status, myOrder, customOrder) values(@value, @isActive, @order, @custOrder);";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     cmd.Parameters.Add(new SqlParameter("@value", value));
@@ -849,7 +840,7 @@ namespace Capstone2nd
                 }
                 
                 //find if this field uses custom ordering
-                sql = "SELECT \"order\" FROM " + tableName;
+                sql = "SELECT myOrder FROM " + tableName;
                 String orderType = String.Empty;
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -858,7 +849,7 @@ namespace Capstone2nd
                         //all "order" entries should be the same so only need to read one
                         while (reader.Read())
                         {
-                            orderType = reader["order"].ToString();
+                            orderType = reader["myOrder"].ToString();
                             break;
                         }
                     }

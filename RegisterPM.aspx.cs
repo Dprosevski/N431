@@ -171,9 +171,9 @@ namespace Capstone2nd
 
                 //insert
                 sql = "INSERT INTO  ProgramManager  (roleID, prefix, firstName, middleName, lastName, sufix, email, password, altEmail, phone," +
-                "registerDate, lastLogin, approved, currLoggedIn, rndCode)" +
+                "registerDate, lastLogin, approved, currLoggedIn, rndCode, status)" +
                 "values(@roleID, @prefix, @firstName, @middleName, @lastName, @sufix, @email, @pass, @altEmail, @phone," +
-                "@registerDate, NULL, 'no', 'no', @rndCode);";
+                "@registerDate, NULL, 'no', 'no', @rndCode, 'inactive');";
                 cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add(new SqlParameter("@roleID", roleIDForm));
                 cmd.Parameters.Add(new SqlParameter("@prefix", prefixForm));
