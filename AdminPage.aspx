@@ -304,6 +304,13 @@
         <asp:Label ID="areaCustomLbl" runat="server" Text="Set custom list position" Font-Size="10pt" Visible="false"></asp:Label><br />
         <asp:DropDownList ID="areaCustomOrder" Visible="false" runat="server"></asp:DropDownList>
         <asp:Button CssClass="btn btn-primary" ID="areaEditBtn" OnClick="editSelected" runat="server" AutoPostBack="true" Text="Submit"/><br /><br /><hr />
+    
+        
+        <asp:Button runat="server" ID="DwnldButton" Text="Export to Excel" OnClick="DwnldButton_Click"/>
+            <asp:Panel id="pnlDownload" Visible="false" runat="server">
+                    
+                <asp:HyperLink ID="HyperLink" runat="server">HyperLink</asp:HyperLink>
+            </asp:Panel>
     </form>
 
     <!-- Footer -->

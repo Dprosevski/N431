@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Collections;
 
 //must include this namespace
 using System.Data.SqlClient;
@@ -1018,6 +1019,71 @@ namespace Capstone2nd
 
             //refresh drop down lists
             populateData(true);
+        }
+
+        protected void DwnldButton_Click(object sender, EventArgs e)
+        {
+            pnlDownload.Visible = true; //visible should be false on page load
+
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Paige\Downloads\N431-master/data.csv");//be sure to change this to where u want it to go
+
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            ArrayList res = new ArrayList();
+            con.Open();
+
+            String sql = "SELECT * FROM Search";
+
+            SqlCommand cmd = new SqlCommand(sql, con);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                ArrayList row = new ArrayList();
+                for (int field = 0; field < reader.FieldCount; field++)
+                {
+                    string oneValue = reader.GetValue(field).ToString();
+
+                    row.Add(oneValue);
+                }
+                //add the row to the table
+                res.Add(row);
+                //rowCount++;
+            }
+            con.Close();
+
+            file.WriteLine("ProgramID, ManagerFirstName, ManagerMiddleName, ManagerLastName, ProgramName, Acronym, ContactPersonFirstName, ContactPersonMiddleName, " +
+                "ContactPersonLastName, ContactPersonEmail, ContactPersonPhone, StateName, StateCode, County, City, fieldOfStudy, fieldDescription, " +
+                "Grade, Residential, ResidentialDescription, Cost, Duration, Season, ServiceArea, ServiceAreaDescription, Stipend, StipendEligibility, " +
+                "StipendAmount, AddNotes, Affiliation, AffiliationDescription, Restrictions, RestrictionDescription, EligibilityRes, StreetAddress, " +
+                "ProgWebsite, ProgDescription, StartDate, AppDeadline, LastUpdated");
+
+            for (int j = 0; j < res.Count; j++)
+            {
+                //loop through each row to get the content, create each line with values as comman seperated and write each line to the file
+                ArrayList oneRow = new ArrayList();
+                oneRow = (ArrayList)res[j];
+                string line = "";
+                for (int field = 0; field < oneRow.Count; field++)
+                {
+                    //there should be no comma after the last value, carriage return in CSV files indicate a new row
+                    if (field == (oneRow.Count - 1)) line = line + oneRow[field].ToString();
+                    else line = line + oneRow[field].ToString() + ",";
+
+                }
+
+                file.WriteLine(line);
+            }
+            file.Flush();
+            file.Close();
+
+            HyperLink.Text = "Click here to download CSV file";
+
+            //replace the root URL with your local host URL or a live URL
+            HyperLink.NavigateUrl = "http://localhost:44380/data.csv";//change to your local host
+
         }
     }
 }
