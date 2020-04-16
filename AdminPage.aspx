@@ -45,6 +45,40 @@
         <asp:Label ID="lblFindAdminID" runat="server" Text="Choose an admin to edit:" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:DropDownList ID="adminList" OnSelectedIndexChanged="Index_Change" AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList>
         <asp:Button ID="editAdminID" runat="server" Text="Edit" UseSubmitBehavior="false" OnClick="editAdminID_Click" Visible ="false"/><br /><br />
+        
+        <!-- View New Program -->
+        <asp:PlaceHolder ID="ProgramApproval" Visible ="false" runat="server">
+        <div>
+            <br />
+            <br />
+            <br />
+
+                <h2> Programs: Please Approve or Deny the Following Programs: </h2>
+            
+                
+                    <asp:CheckBoxList ID="ProgramCheckList" runat="server">
+
+                    </asp:CheckBoxList>
+                    
+                    <asp:Button CssClass="btn btn-secondary" ID="Approve_Button" OnClick="submitApprove" runat="server" AutoPostBack="true" Text="Submit"/><br />
+                    <hr /><asp:Label runat="server" CssClass="Approve" ID="Approve" Text="Please Select a Program to Approve" ForeColor="Red" Font-Size="10pt" Visible="false"></asp:Label><br />
+                    <br />
+            <br />
+            <br />
+            <br />
+
+        </div>
+        </asp:PlaceHolder>
+                    
+
+
+
+        <hr /><asp:Label runat="server" CssClass="Program" Text="Add new programs" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:TextBox ID="ProgramBox" CssClass="Program" runat="server" BackColor="White" onfocus="this.select()"></asp:TextBox><br />
+        <asp:Button CssClass="btn btn-secondary" ID="submitNewProgram" OnClick="submitProg" runat="server" AutoPostBack="true" Text="Submit"/><br />
+        <hr /><asp:Label runat="server" CssClass="success" ID="Success" Text="An Admin must approve before users can search for the program" ForeColor="Green" Font-Size="10pt" Visible="false"></asp:Label><br />
+        <br />
+
 
 
         <!-- new program field -->

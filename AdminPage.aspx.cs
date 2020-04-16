@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Data;
+using System.Configuration;
+using System.Drawing;
 
 namespace Capstone2nd
 {
@@ -24,6 +27,7 @@ namespace Capstone2nd
                 lblFindAdminID.Visible = true;
                 adminList.Visible = true;
                 editAdminID.Visible = true;
+                ProgramApproval.Visible = true;
             }
 
             if (Session["message"] != null)
@@ -69,6 +73,18 @@ namespace Capstone2nd
 
                     fieldList.SelectedIndex = selectedIndex;
                     reader.Close();
+                    // Populate Prgram Table
+                    string sqlquery = "SELECT * FROM dbo.Program";
+                    SqlCommand sqlcmd = new SqlCommand(sqlquery, con);
+                    
+                    SqlDataAdapter sda = new SqlDataAdapter(sqlcmd);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    ProgramCheckList.DataTextField = "acronym";
+                    ProgramCheckList.DataValueField = "progID";
+                    ProgramCheckList.DataSource = dt;
+                    ProgramCheckList.DataBind();
+
 
                     //populate role dropdown
                     selectedIndex = roleList.SelectedIndex;
@@ -266,7 +282,104 @@ namespace Capstone2nd
             }
         }
 
-        protected void submitNew(object sender, EventArgs e)
+        protected void submitApprove(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            try
+            {
+                //string sql = "INSERT INTO dbo.Program (acronym)" + " VALUES ('" + ProgramBox.Text.Replace("'", "''") + "', null)";
+                // sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
+
+                
+
+                
+
+
+                foreach (ListItem item in ProgramCheckList.Items)
+                {
+                    if (item.Selected == true)
+                    {
+                        
+                        string value = item.Text;
+                        
+                        string newStatus = "approved";
+
+                        SqlCommand cmd = new SqlCommand("UPDATE dbo.Program SET APPROVED= @approved WHERE acronym= @value", con);
+                        cmd.Parameters.Add(new SqlParameter("@value", value));
+                        cmd.Parameters.Add(new SqlParameter("@approved", newStatus));
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                        con.Close();
+
+                        Approve.Text = "Approved!";
+                        Approve.ForeColor = Color.Green;
+
+                    }
+
+
+
+                }
+
+                Approve.Visible = true;
+
+
+            }
+
+            catch (Exception err)
+            {
+                lblMessage.Text = null;
+                lblMessage.Text = "Something went wrong Cannot submit information now. Please try again later.";
+            }
+            finally
+            {
+                //  con.Close();
+                Session["message"] = "An Admin must approve before users can search for program";
+            }
+        }
+
+        protected void submitProg(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            //SqlConnection con = new SqlConnection(cs);
+
+            try
+            {
+                //string sql = "INSERT INTO dbo.Program (acronym)" + " VALUES ('" + ProgramBox.Text.Replace("'", "''") + "', null)";
+                // sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Program (acronym) Values (@acronym)", con);
+
+                    cmd.Parameters.Add(new SqlParameter("@acronym", ProgramBox.Text));
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+                    con.Close();
+                }
+
+                Success.Visible = true;
+               
+                
+            }
+
+            catch (Exception err)
+            {
+                lblMessage.Text = null;
+                lblMessage.Text = "Something went wrong Cannot submit information now. Please try again later.";
+            }
+            finally
+            {
+              //  con.Close();
+                Session["message"] = "An Admin must approve before users can search for program";
+            }
+        }
+
+
+            protected void submitNew(object sender, EventArgs e)
         {
             string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
@@ -419,6 +532,8 @@ namespace Capstone2nd
             }
             populateData(true);
         }
+
+
 
         protected void editSelected(object sender, EventArgs e)
         {
@@ -673,8 +788,15 @@ namespace Capstone2nd
                 Response.Write(err.Message);
             }
 
+
+
             //refresh drop down lists
             populateData(true);
         }
+
+        
+            
+        }
+
     }
-}
+
