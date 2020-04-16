@@ -112,6 +112,42 @@ namespace Capstone2nd {
         protected global::System.Web.UI.WebControls.Button approveManagerBtn;
         
         /// <summary>
+        /// activeManagers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList activeManagers;
+        
+        /// <summary>
+        /// makeInactiveManagerBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button makeInactiveManagerBtn;
+        
+        /// <summary>
+        /// inactiveManagers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList inactiveManagers;
+        
+        /// <summary>
+        /// makeActiveManagerBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button makeActiveManagerBtn;
+        
+        /// <summary>
         /// newField control.
         /// </summary>
         /// <remarks>

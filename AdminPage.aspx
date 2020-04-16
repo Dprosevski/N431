@@ -58,6 +58,18 @@
         <asp:DropDownList ID="unapprovedManagers" runat="server" AppendDataBoundItems="False" AutoPostBack="true"></asp:DropDownList><br />
         <asp:Label runat="server" Text="Approve the currently selected manager" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
         <asp:Button runat="server" ID="approveManagerBtn" Text="Approve" OnClick="editManager"/><br /><br />
+        
+        <!-- show program managers with active status -->
+        <asp:Label runat="server" Text="Active program managers" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="activeManagers" runat="server" AppendDataBoundItems="False" AutoPostBack="true"></asp:DropDownList><br />
+        <asp:Label runat="server" Text="Remove active status for the currently selected manager" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:Button runat="server" ID="makeInactiveManagerBtn" Text="Make Inactive" OnClick="editManager"/><br /><br />
+
+        <!-- show program managers with inactive status -->
+        <asp:Label runat="server" Text="Inactive program managers" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:DropDownList ID="inactiveManagers" runat="server" AppendDataBoundItems="False" AutoPostBack="true"></asp:DropDownList><br />
+        <asp:Label runat="server" Text="Add active status for the currently selected manager" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+        <asp:Button runat="server" ID="makeActiveManagerBtn" Text="Make Active" OnClick="editManager"/><br /><br />
 
         <!-- new program field -->
         <hr /><asp:Label runat="server" CssClass="FieldOfStudy" Text="Add new field for programs" ForeColor="Black" Font-Size="10pt"></asp:Label><br />

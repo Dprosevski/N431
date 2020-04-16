@@ -245,6 +245,8 @@ namespace Capstone2nd
                     string sql = "SELECT * FROM ProgramManager";
                     approvedManagers.Items.Clear();
                     unapprovedManagers.Items.Clear();
+                    activeManagers.Items.Clear();
+                    inactiveManagers.Items.Clear();
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -260,10 +262,19 @@ namespace Capstone2nd
                                 {
                                     approvedManagers.Items.Add(newItem);
                                 }
+                                if (reader["status"].ToString() == "active")
+                                {
+                                    activeManagers.Items.Add(newItem);
+                                }
+                                else
+                                {
+                                    inactiveManagers.Items.Add(newItem);
+                                }
                             }
                         }
                     }
                     sql = "SELECT * FROM Admin";
+                    adminList.Items.Clear();
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -313,6 +324,7 @@ namespace Capstone2nd
                         
                         //generate a SQL query based on ordering scheme
                         sql = "SELECT myOrder FROM " + DBName;
+                        System.Diagnostics.Debug.WriteLine(sql);
                         String orderType = String.Empty;
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
@@ -391,6 +403,7 @@ namespace Capstone2nd
                                 while (reader.Read())
                                 {
                                     ListItem newItem = new ListItem(reader[colName].ToString());
+                                    System.Diagnostics.Debug.WriteLine(newItem.Text);
                                     list.Items.Add(newItem);
 
                                     if (orderType == "custom")
@@ -403,15 +416,17 @@ namespace Capstone2nd
                                 customList.SelectedIndex = 0;
                             }
                         }
-                        
+
+                        System.Diagnostics.Debug.WriteLine("AT THE END");
                     }
                 }
 
                 catch (Exception err)
                 {
                     lblMessage.Text = null;
-                    lblMessage.Text = "Cannot submit information now. Please try again later.";
-                }
+                    //lblMessage.Text = "Cannot submit information now. Please try again later.";
+                
+            }
                 finally
                 {
                     con.Close();
@@ -654,10 +669,22 @@ namespace Capstone2nd
                 sql = "UPDATE ProgramManager SET approved = 'yes' WHERE email = @email";
             }
 
-            else
+            else if (senderID == "disapproveManagerBtn")
             {
                 email = approvedManagers.SelectedValue.ToString();
                 sql = "UPDATE ProgramManager SET approved = 'no' WHERE email = @email";
+            }
+
+            else if (senderID == "makeInactiveManagerBtn")
+            {
+                email = activeManagers.SelectedValue.ToString();
+                sql = "UPDATE ProgramManager SET status = 'inactive' WHERE email = @email";
+            }
+
+            else if (senderID == "makeActiveManagerBtn")
+            {
+                email = inactiveManagers.SelectedValue.ToString();
+                sql = "UPDATE ProgramManager SET status = 'active' WHERE email = @email";
             }
 
             string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;

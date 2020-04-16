@@ -58,8 +58,18 @@ namespace Capstone2nd
                                     }
                                     else
                                     {
-                                        newProgID.Visible = true;
                                         changePwdID.Visible = true;
+                                        //inactive program managers can't add/edit programs
+                                        if (reader["status"].ToString() == "inactive")
+                                        {
+                                            newProgID.Visible = false;
+                                            //edit program stuff.Visible = false;
+                                        }
+                                        else
+                                        {
+                                            newProgID.Visible = true;
+                                            //edit program stuff.Visible = true;
+                                        }
                                     }
                                     break;
                                 }
