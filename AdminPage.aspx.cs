@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
+using System.Data;
 
 //must include this namespace
 using System.Data.SqlClient;
@@ -27,6 +28,9 @@ namespace Capstone2nd
                 lblFindAdminID.Visible = true;
                 adminList.Visible = true;
                 editAdminID.Visible = true;
+                lblFindAdminID.Visible = true;
+                adminList.Visible = true;
+                ProgramApproval.Visible = true;
             }
 
             if (Session["message"] != null)
@@ -113,7 +117,7 @@ namespace Capstone2nd
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 cmd.Dispose();
-                
+
                 //if they chose custom ordering for the first time, the "customOrder" field must be initialized 
                 //initialize to ID position by default
                 if (newOrder == "custom")
@@ -168,6 +172,29 @@ namespace Capstone2nd
                 try
                 {
                     con.Open();
+
+                    //program manager dropdowns
+                    string sql = "SELECT * FROM Program";
+                    activePrograms.Items.Clear();
+                    inactivePrograms.Items.Clear();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ListItem newItem = new ListItem(reader["name"].ToString());
+                                if (reader["status"].ToString() == "inactive")
+                                {
+                                    inactivePrograms.Items.Add(newItem);
+                                }
+                                else
+                                {
+                                    activePrograms.Items.Add(newItem);
+                                }
+                            }
+                        }
+                    }
 
                     //iterate through the page to fill each list
                     List<DropDownList> dropDowns = new List<DropDownList>();
@@ -243,7 +270,7 @@ namespace Capstone2nd
                     customLists.Add(areaCustomOrder);
 
                     //program manager dropdowns
-                    string sql = "SELECT * FROM ProgramManager";
+                    sql = "SELECT * FROM ProgramManager";
                     approvedManagers.Items.Clear();
                     unapprovedManagers.Items.Clear();
                     activeManagers.Items.Clear();
@@ -306,7 +333,7 @@ namespace Capstone2nd
                         string selectedVal = list.SelectedValue;
                         int selectedIndex = list.SelectedIndex;
                         list.Items.Clear();
-                       
+
                         //not every value column name is the same
                         //hopefully all of them will be "value" at some point but I don't want to break anything rn
                         string colName = String.Empty;
@@ -322,10 +349,9 @@ namespace Capstone2nd
                         {
                             colName = "value";
                         }
-                        
+
                         //generate a SQL query based on ordering scheme
                         sql = "SELECT myOrder FROM " + DBName;
-                        System.Diagnostics.Debug.WriteLine(sql);
                         String orderType = String.Empty;
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
@@ -394,8 +420,7 @@ namespace Capstone2nd
                                 }
                             }
                         }
-
-                        System.Diagnostics.Debug.WriteLine(sql);
+                        
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -404,7 +429,6 @@ namespace Capstone2nd
                                 while (reader.Read())
                                 {
                                     ListItem newItem = new ListItem(reader[colName].ToString());
-                                    System.Diagnostics.Debug.WriteLine(newItem.Text);
                                     list.Items.Add(newItem);
 
                                     if (orderType == "custom")
@@ -417,8 +441,6 @@ namespace Capstone2nd
                                 customList.SelectedIndex = 0;
                             }
                         }
-
-                        System.Diagnostics.Debug.WriteLine("AT THE END");
                     }
                 }
 
@@ -426,8 +448,8 @@ namespace Capstone2nd
                 {
                     lblMessage.Text = null;
                     //lblMessage.Text = "Cannot submit information now. Please try again later.";
-                
-            }
+
+                }
                 finally
                 {
                     con.Close();
@@ -480,6 +502,103 @@ namespace Capstone2nd
                 //Session["message"] = "Changes successfully applied!";
             }
         }
+
+        protected void submitApprove(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            try
+            {
+                //string sql = "INSERT INTO dbo.Program (acronym)" + " VALUES ('" + ProgramBox.Text.Replace("'", "''") + "', null)";
+                // sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
+
+
+
+
+
+
+                foreach (ListItem item in ProgramCheckList.Items)
+                {
+                    if (item.Selected == true)
+                    {
+
+                        string value = item.Text;
+
+                        string newStatus = "approved";
+
+                        SqlCommand cmd = new SqlCommand("UPDATE dbo.Program SET APPROVED= @approved WHERE acronym= @value", con);
+                        cmd.Parameters.Add(new SqlParameter("@value", value));
+                        cmd.Parameters.Add(new SqlParameter("@approved", newStatus));
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                        con.Close();
+
+                        Approve.Text = "Approved!";
+                        Approve.ForeColor = System.Drawing.Color.Green;
+
+                    }
+
+
+
+                }
+
+                Approve.Visible = true;
+
+
+            }
+
+            catch (Exception err)
+            {
+                lblMessage.Text = null;
+                lblMessage.Text = "Something went wrong Cannot submit information now. Please try again later.";
+            }
+            finally
+            {
+                //  con.Close();
+                Session["message"] = "An Admin must approve before users can search for program";
+            }
+        }
+
+        protected void submitProg(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            //SqlConnection con = new SqlConnection(cs);
+
+            try
+            {
+                //string sql = "INSERT INTO dbo.Program (acronym)" + " VALUES ('" + ProgramBox.Text.Replace("'", "''") + "', null)";
+                // sql = "UPDATE " + tableName + " SET " + idName + "= @newValue WHERE " + idName + "= @value;";
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Program (acronym) Values (@acronym)", con);
+
+                    cmd.Parameters.Add(new SqlParameter("@acronym", ProgramBox.Text));
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+                    con.Close();
+                }
+
+                Success.Visible = true;
+
+
+            }
+
+            catch (Exception err)
+            {
+                lblMessage.Text = null;
+                lblMessage.Text = "Something went wrong Cannot submit information now. Please try again later.";
+            }
+            finally
+            {
+                //  con.Close();
+                Session["message"] = "An Admin must approve before users can search for program";
+            }
+        }
+
 
         protected void submitNew(object sender, EventArgs e)
         {
@@ -625,7 +744,7 @@ namespace Capstone2nd
                         }
                     }
                 }
-                
+
                 sql = "INSERT INTO " + tableName + " (" + valName + ", status, myOrder, customOrder) values(@value, @isActive, @order, @custOrder);";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -657,12 +776,24 @@ namespace Capstone2nd
             populateData(true);
         }
 
-        protected void editManager (object sender, EventArgs e)
+        protected void editManager(object sender, EventArgs e)
         {
             Button senderBtn = sender as Button;
             string senderID = senderBtn.ID;
             string email = String.Empty;
             string sql = String.Empty;
+
+            if (senderID == "makeProgramInactiveID")
+            {
+                email = activePrograms.SelectedValue.ToString();
+                sql = "UPDATE Program SET status = 'inactive' WHERE name = @email;";
+            }
+
+            if (senderID == "makeProgramActiveID")
+            {
+                email = inactivePrograms.SelectedValue.ToString();
+                sql = "UPDATE Program SET status = 'active' WHERE name = @email;";
+            }
 
             if (senderID == "approveManagerBtn")
             {
@@ -824,7 +955,6 @@ namespace Capstone2nd
                 else if (senderID == "gradeEditBtn")
                 {
                     index = 2;
-                    System.Diagnostics.Debug.WriteLine("grade edit btn");
                 }
 
                 else if (senderID == "residentialEditBtn")
@@ -856,7 +986,7 @@ namespace Capstone2nd
                 {
                     index = 8;
                 }
-                
+
                 tableName = tableNames[index];
                 value = toEdit[index].SelectedItem.Value;
                 editValues[index].Text = string.Empty;
@@ -866,7 +996,7 @@ namespace Capstone2nd
                 {
                     newStatus = "active";
                 }
-                
+
                 //find if this field uses custom ordering
                 sql = "SELECT myOrder FROM " + tableName;
                 String orderType = String.Empty;
@@ -894,7 +1024,7 @@ namespace Capstone2nd
 
                         //first get the current custom order of the selected entry
                         sql = "SELECT * FROM  " + tableName + " WHERE " + idName + " = '" + value + "'";
-                        
+
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             using (SqlDataReader reader = cmd.ExecuteReader())
@@ -906,7 +1036,7 @@ namespace Capstone2nd
                                 }
                             }
                         }
-                        
+
                         sql = "SELECT * FROM " + tableName;
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
@@ -923,8 +1053,7 @@ namespace Capstone2nd
                                         {
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + newCustomOrder + " WHERE " + primKey + " = " + curID + ";";
-
-                                            System.Diagnostics.Debug.WriteLine(sql2);
+                                            
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
@@ -952,8 +1081,7 @@ namespace Capstone2nd
                                         {
                                             con2.Open();
                                             string sql2 = "UPDATE " + tableName + " SET customOrder = " + curCustomOrder + " WHERE " + primKey + " = " + curID + ";";
-
-                                            System.Diagnostics.Debug.WriteLine(sql2);
+                                            
                                             using (SqlCommand cmd2 = new SqlCommand(sql2, con2))
                                             {
                                                 cmd2.ExecuteNonQuery();
@@ -1025,7 +1153,7 @@ namespace Capstone2nd
         {
             pnlDownload.Visible = true; //visible should be false on page load
 
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Paige\Downloads\N431-master/data.csv");//be sure to change this to where u want it to go
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\dpros\Desktop\data.csv");//be sure to change this to where u want it to go
 
             string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(cs);

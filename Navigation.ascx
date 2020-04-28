@@ -29,6 +29,9 @@
                             <asp:HyperLink CssClass="nav-link js-scroll-trigger" ID="newProgID" runat="server" NavigateUrl="~/NewProgram.aspx">Add New Program</asp:HyperLink>
                         </li>
                         <li class="nav-item">
+                            <asp:HyperLink CssClass="nav-link js-scroll-trigger" ID="editProgramID" runat="server" NavigateUrl="~/EditProgram.aspx">Edit Program</asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
                             <form action="Default.aspx">
                                 <asp:HyperLink CssClass="nav-link js-scroll-trigger" ID="logoutID" runat="server" NavigateUrl="~/Logout.aspx">Logout</asp:HyperLink>
                             </form>

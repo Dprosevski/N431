@@ -30,7 +30,7 @@ namespace Capstone2nd
 
                 if (!IsPostBack)
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM FieldOfStudy", con);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM FieldofStudy", con);
                     con.Open();
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -156,9 +156,47 @@ namespace Capstone2nd
                             ServiceArea.Items.Add(NewItem);
                         }
                     }
-                    con.Close();
-                }
+                    reader.Close();
 
+                    //populate state dropdown
+
+                    stateList.Items.Clear();
+                    cmd = new SqlCommand("SELECT name FROM State", con);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ListItem NewItem = new ListItem(reader["name"].ToString());
+                        stateList.Items.Add(NewItem);
+                    }
+                    reader.Close();
+
+                    //populate county dropdown
+
+                    countyList.Items.Clear();
+                    cmd = new SqlCommand("SELECT county FROM ProgLoc", con);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ListItem NewItem = new ListItem(reader["county"].ToString());
+                        countyList.Items.Add(NewItem);
+                    }
+                    reader.Close();
+
+                    //populate city dropdown
+
+                    cityList.Items.Clear();
+                    cmd = new SqlCommand("SELECT city FROM ProgLoc", con);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ListItem NewItem = new ListItem(reader["city"].ToString());
+                        cityList.Items.Add(NewItem);
+                    }
+                    reader.Close();
+                }
             }
 
             catch (Exception err)
@@ -214,10 +252,26 @@ namespace Capstone2nd
 
                 int contactID = (int)cmd.ExecuteScalar();
 
-                String sql = "INSERT INTO Program (progManagerID, name, acronym, contactID, resiID, programCostID, durationID, seasonID, " +
-                    "serviceAreaID, stipendID, addNotes, appDeadline, eligibilityRes, streetAddress, progWebsite, progDescription) VALUES" +
-                    "(@findUserID, @progname, @acronym, @progContact, @resident, @cost, @duration, @season, @serviceArea, @stipend, " +
-                    "@notes, @deadline, @eligibility, @address, @website, @description);";
+                cmd = new SqlCommand("Select stateID FROM State WHERE name = @state;", con);
+                cmd.Parameters.Add(new SqlParameter("@state", stateList.SelectedValue));
+
+                int stateID = (int)cmd.ExecuteScalar();
+
+                cmd = new SqlCommand("Select progLocID FROM ProgLoc WHERE stateID = @stateID AND city = @city AND county = @county;", con);
+                cmd.Parameters.Add(new SqlParameter("@stateID", stateID));
+                cmd.Parameters.Add(new SqlParameter("@county", countyList.SelectedValue));
+                cmd.Parameters.Add(new SqlParameter("@city", cityList.SelectedValue));
+
+                int progLocID = (int)cmd.ExecuteScalar();
+
+                String sql = "INSERT INTO Program (progManagerID, name, acronym, contactID, progLocID, fieldDescription, resiID, " +
+                    "residentalDescription, programCostID, durationID, seasonID, serviceAreaID, serviceAreaDescription, stipendID, stipendEligibility, " +
+                    "stipendAmount, startDate, appDeadline, affiliation, affiliationDescription, restrictions, restrictionsDescription, streetAddress, " +
+                    "progWebsite, ProgDescription, lastUpdated, fieldID, gradesID, approved, status) VALUES" +
+                    "(@findUserID, @progname, @acronym, @progContact, @progLocID, @subjectOther, @resident, @residentOther, @cost, " +
+                    "@duration, @season, @serviceArea, @serviceOther, @stipend, @stipendElig, @stipendCost, " +
+                    "@startdate, @deadline, @uniAff, @affiliation, @restriction, @eligibility, @address, @website, @description, @date, @subject, @grade," +
+                    "@approved, @status);";
 
 
                 cmd = new SqlCommand(sql, con);
@@ -225,18 +279,41 @@ namespace Capstone2nd
                 cmd.Parameters.Add(new SqlParameter("@progname", pname.Text));
                 cmd.Parameters.Add(new SqlParameter("@acronym", acnym.Text));
                 cmd.Parameters.Add(new SqlParameter("@progContact", contactID));
+                cmd.Parameters.Add(new SqlParameter("@progLocID", progLocID));
+                cmd.Parameters.Add(new SqlParameter("@subjectOther", other.Text)).IsNullable = true;
                 cmd.Parameters.Add(new SqlParameter("@resident", (Progdescription.SelectedIndex + 1)));
+                cmd.Parameters.Add(new SqlParameter("@residentOther", residentother.Text)).IsNullable = true;
                 cmd.Parameters.Add(new SqlParameter("@cost", (radioCost.SelectedIndex + 1)));
                 cmd.Parameters.Add(new SqlParameter("@duration", (Progduration.SelectedIndex + 1)));
                 cmd.Parameters.Add(new SqlParameter("@season", (Season.SelectedIndex + 1)));
                 cmd.Parameters.Add(new SqlParameter("@serviceArea", (ServiceArea.SelectedIndex + 1)));
+                cmd.Parameters.Add(new SqlParameter("@serviceOther", serviceareaother.Text)).IsNullable = true;
                 cmd.Parameters.Add(new SqlParameter("@stipend", (stipendlist.SelectedIndex + 1)));
-                cmd.Parameters.Add(new SqlParameter("@notes", Additional_Notes.Text));
+                cmd.Parameters.Add(new SqlParameter("@stipendElig", stipendinput1.Text)).IsNullable = true;
+                cmd.Parameters.Add(new SqlParameter("@stipendCost", stipendinput2.Text)).IsNullable = true;
+                cmd.Parameters.Add(new SqlParameter("@startdate", StartDate.Text));
                 cmd.Parameters.Add(new SqlParameter("@deadline", AppDeadline.Text));
-                cmd.Parameters.Add(new SqlParameter("@eligibility", elig.Text));
+                cmd.Parameters.Add(new SqlParameter("@uniAff", UniAff.SelectedValue));
+                cmd.Parameters.Add(new SqlParameter("@affiliation", uni.Text)).IsNullable = true;
+                cmd.Parameters.Add(new SqlParameter("@restriction", eligibility.SelectedValue));
+                cmd.Parameters.Add(new SqlParameter("@eligibility", elig.Text)).IsNullable = true;
                 cmd.Parameters.Add(new SqlParameter("@address", StreetAddress.Text));
                 cmd.Parameters.Add(new SqlParameter("@website", ProgramSite.Text));
                 cmd.Parameters.Add(new SqlParameter("@description", ProgDes.Text));
+                cmd.Parameters.Add(new SqlParameter("@date", TextBox1.Text));
+                cmd.Parameters.Add(new SqlParameter("@subject", (subject.SelectedIndex + 1)));
+                cmd.Parameters.Add(new SqlParameter("@grade", (grade.SelectedIndex + 1)));
+                cmd.Parameters.Add(new SqlParameter("@approved", "unapproved"));
+                cmd.Parameters.Add(new SqlParameter("@status", "active"));
+
+                foreach (SqlParameter parameter in cmd.Parameters)
+                {
+                    if (parameter.Value.Equals(""))
+                    {
+                        parameter.Value = DBNull.Value;
+                    }
+                }
+
                 cmd.ExecuteNonQuery();
 
                 form1.Visible = false;
@@ -267,7 +344,7 @@ namespace Capstone2nd
             Response.Redirect("Default.aspx");
         }
 
-        protected void list_SelectedIndexChanged(object sender, EventArgs e)
+        /*protected void list_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (subject.Text == "other")
             {   //If Program Manager is selected prompt role field and label
@@ -304,6 +381,76 @@ namespace Capstone2nd
                 serviceareaotherlabel.Visible = true;
                 serviceareaother.Visible = true;
             }
+        }*/
+
+        protected void stateList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+            SqlDataReader reader;
+            SqlCommand cmd;
+            con.Open();
+            foreach (ListItem li in stateList.Items)
+            {
+                if (li.Selected)
+                {
+
+                    String state = li.Value;
+                    cmd = new SqlCommand("SELECT stateID FROM State WHERE name = @state", con);
+                    cmd.Parameters.Add(new SqlParameter("@state", state));
+                    int findStateID = (int)cmd.ExecuteScalar();
+
+                    cmd = new SqlCommand("SELECT DISTINCT county FROM ProgLoc WHERE stateID = @stateID and county != ''", con);
+                    cmd.Parameters.Add(new SqlParameter("@stateID", findStateID));
+
+                    reader = cmd.ExecuteReader();
+                    countyList.Items.Clear();
+                    while (reader.Read())
+                    {
+                        ListItem NewItem = new ListItem(reader["county"].ToString());
+                        countyList.Items.Add(NewItem);
+                    }
+                    reader.Close();
+                    break;
+                }
+            }
+            con.Close();
         }
+
+        protected void countyList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+            SqlDataReader reader;
+            SqlCommand cmd;
+            con.Open();
+            foreach (ListItem li in countyList.Items)
+            {
+                if (li.Selected)
+                {
+
+                    String State = stateList.SelectedValue;
+                    cmd = new SqlCommand("SELECT stateID FROM State WHERE name = @state", con);
+                    cmd.Parameters.Add(new SqlParameter("@state", State));
+                    int findStateID = (int)cmd.ExecuteScalar();
+
+
+                    cmd = new SqlCommand("SELECT city FROM ProgLoc WHERE stateID = @stateID AND county = @county", con);
+                    cmd.Parameters.Add(new SqlParameter("@stateID", findStateID));
+                    cmd.Parameters.Add(new SqlParameter("@county", li.Value));
+
+                    reader = cmd.ExecuteReader();
+                    cityList.Items.Clear();
+                    while (reader.Read())
+                    {
+                        ListItem NewItem = new ListItem(reader["city"].ToString());
+                        cityList.Items.Add(NewItem);
+                    }
+                    reader.Close();
+                    break;
+                }
+            }
+            con.Close();
+        }//county list
     }
 }

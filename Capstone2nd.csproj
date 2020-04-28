@@ -83,6 +83,8 @@
     <Content Include="css\style.css" />
     <Content Include="Default.aspx" />
     <Content Include="EditAdmin.aspx" />
+    <Content Include="EditProgram.aspx" />
+    <Content Include="EditProgram1.aspx" />
     <Content Include="Footer.ascx" />
     <Content Include="ForgetPwd.aspx" />
     <Content Include="Global.asax" />
@@ -131,6 +133,20 @@
     </Compile>
     <Compile Include="EditAdmin.aspx.designer.cs">
       <DependentUpon>EditAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProgram.aspx.cs">
+      <DependentUpon>EditProgram.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProgram.aspx.designer.cs">
+      <DependentUpon>EditProgram.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProgram1.aspx.cs">
+      <DependentUpon>EditProgram1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProgram1.aspx.designer.cs">
+      <DependentUpon>EditProgram1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Footer.ascx.cs">
       <DependentUpon>Footer.ascx</DependentUpon>

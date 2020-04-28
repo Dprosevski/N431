@@ -20,6 +20,7 @@ namespace Capstone2nd
                 loginID.Visible = true;
                 logoutID.Visible = false;
                 changePwdID.Visible = false;
+                editProgramID.Visible = false;
             }
             else //if user is logged in
             {
@@ -55,6 +56,7 @@ namespace Capstone2nd
                                     {
                                         newProgID.Visible = false;
                                         changePwdID.Visible = false;
+                                        editProgramID.Visible = false;
                                     }
                                     else
                                     {
@@ -63,12 +65,12 @@ namespace Capstone2nd
                                         if (reader["status"].ToString() == "inactive")
                                         {
                                             newProgID.Visible = false;
-                                            //edit program stuff.Visible = false;
+                                            editProgramID.Visible = false;
                                         }
                                         else
                                         {
                                             newProgID.Visible = true;
-                                            //edit program stuff.Visible = true;
+                                            editProgramID.Visible = true;
                                         }
                                     }
                                     break;

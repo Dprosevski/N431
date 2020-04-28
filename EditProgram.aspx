@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditProgram.aspx.cs" Inherits="Capstone2nd.EditProgram" %>
+﻿<%@ Page Language="C#" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="EditProgram.aspx.cs" Inherits="Capstone2nd.EditProgram" %>
 <%@ Register TagPrefix="general" TagName="Nav" Src="Navigation.ascx" %>
 
 <!DOCTYPE html>
@@ -51,8 +51,9 @@
         <asp:Label id="lblMessage" Height="40px" Font-Size="18px" ForeColor="Red" runat="server" /><br />
         
         <asp:Label ID="ProgDescription" runat="server" Text="Choose Which Program You Wish To Edit:" ForeColor="Black" Font-Size="14pt"></asp:Label><br />
-        <asp:DropDownList ID="ProgList" runat="server">
+        <asp:DropDownList ID="ProgList" runat="server" OnSelectedIndexChanged="ProgList_SelectedIndexChanged" AutoPostBack="true">
         </asp:DropDownList><br />
+        <asp:Label ID="lblApproved" runat="server" Text="" ForeColor="Black" Font-Size="14pt"></asp:Label><br />
 
         <!--Button for Submitting the Form-->
         <asp:Label ID="lblSubmit" runat="server" ForeColor="Blue" Font-Size="18pt"></asp:Label><br />

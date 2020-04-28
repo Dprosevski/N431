@@ -249,24 +249,6 @@ namespace Capstone2nd
         protected global::System.Web.UI.WebControls.RadioButtonList radioCost;
 
         /// <summary>
-        /// explainlabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label explainlabel;
-
-        /// <summary>
-        /// exp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox exp;
-
-        /// <summary>
         /// lblstipend control.
         /// </summary>
         /// <remarks>
@@ -285,6 +267,42 @@ namespace Capstone2nd
         protected global::System.Web.UI.WebControls.RadioButtonList stipendlist;
 
         /// <summary>
+        /// stipendlabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label stipendlabel1;
+
+        /// <summary>
+        /// stipendinput1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox stipendinput1;
+
+        /// <summary>
+        /// stipendlabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label stipendlabel2;
+
+        /// <summary>
+        /// stipendinput2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox stipendinput2;
+
+        /// <summary>
         /// lblduration control.
         /// </summary>
         /// <remarks>
@@ -301,15 +319,6 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList Progduration;
-
-        /// <summary>
-        /// Additional_Notes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Additional_Notes;
 
         /// <summary>
         /// lblseason control.
@@ -420,40 +429,22 @@ namespace Capstone2nd
         protected global::System.Web.UI.WebControls.TextBox uni;
 
         /// <summary>
-        /// lbOutReach control.
+        /// eligibilitylabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbOutReach;
+        protected global::System.Web.UI.WebControls.Label eligibilitylabel;
 
         /// <summary>
-        /// OutReach control.
+        /// eligibility control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList OutReach;
-
-        /// <summary>
-        /// companylabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label companylabel;
-
-        /// <summary>
-        /// company control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox company;
+        protected global::System.Web.UI.WebControls.RadioButtonList eligibility;
 
         /// <summary>
         /// lbelig control.
@@ -492,40 +483,58 @@ namespace Capstone2nd
         protected global::System.Web.UI.WebControls.TextBox StreetAddress;
 
         /// <summary>
-        /// lbprogramcounty control.
+        /// lblState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbprogramcounty;
+        protected global::System.Web.UI.WebControls.Label lblState;
 
         /// <summary>
-        /// ProgramCounty control.
+        /// stateList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProgramCounty;
+        protected global::System.Web.UI.WebControls.DropDownList stateList;
 
         /// <summary>
-        /// lbprogramcity control.
+        /// lblCounty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbprogramcity;
+        protected global::System.Web.UI.WebControls.Label lblCounty;
 
         /// <summary>
-        /// ProgramCity control.
+        /// countyList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProgramCity;
+        protected global::System.Web.UI.WebControls.DropDownList countyList;
+
+        /// <summary>
+        /// lblCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCity;
+
+        /// <summary>
+        /// cityList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cityList;
 
         /// <summary>
         /// lbProgramZip control.
@@ -609,6 +618,24 @@ namespace Capstone2nd
         protected global::System.Web.UI.WebControls.TextBox ProgDes;
 
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// TextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+
+        /// <summary>
         /// validSummary control.
         /// </summary>
         /// <remarks>
@@ -661,5 +688,14 @@ namespace Capstone2nd
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Confirm;
+
+        /// <summary>
+        /// footer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Capstone2nd.Footer footer;
     }
 }

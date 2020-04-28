@@ -68,7 +68,7 @@
 		<div class="clearthis">&nbsp;</div>
 
 
-		<!-- This line tells where to insert the reusable general frame code -->
+		<!-- Footer -->
 		<general:Footer ID="footer" runat="server" />
 
 

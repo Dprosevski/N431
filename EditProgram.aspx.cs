@@ -18,6 +18,7 @@ namespace Capstone2nd
                 Response.Redirect("login.aspx");
             }
 
+
             //connect to the database as soon as the page loads so that security questions can be loaded
             string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(cs);
@@ -25,45 +26,42 @@ namespace Capstone2nd
             //always use try/catch for db connections
             try
             {
-
-                //get a list of security questions, create list items and add to the drop down list
-                //See below using a data access component to replace repetitive codes
-
                 if (!IsPostBack)
                 {
                     con.Open();
-                    SqlCommand cmd;
-                    String uname = Session["email"].ToString();
-                    int findUserID = 0;
-
                     if (Session["userType"].ToString() == "ProgramManager")
                     {
-                        cmd = new SqlCommand("SELECT progManagerID FROM ProgramManager WHERE email = @ManagerEmail;", con);
-                        cmd.Parameters.Add(new SqlParameter("@ManagerEmail", uname));
-                        findUserID = (int)cmd.ExecuteScalar();
+                        SqlCommand cmd = new SqlCommand("SELECT progManagerID FROM ProgramManager WHERE email = @ManagerEmail;", con);
+                        cmd.Parameters.Add(new SqlParameter("@ManagerEmail", Session["email"]));
+                        int findUserID = (int)cmd.ExecuteScalar();
+
+                        cmd = new SqlCommand("SELECT name FROM Program WHERE progManagerID = @manager", con);
+                        cmd.Parameters.Add(new SqlParameter("@manager", findUserID));
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        ProgList.Items.Clear();
+                        while (reader.Read())
+                        {
+                            ListItem NewItem = new ListItem(reader["name"].ToString());
+                            ProgList.Items.Add(NewItem);
+                        }
+                        reader.Close();
                     }
 
                     if (Session["userType"].ToString() == "Admin")
                     {
-                        cmd = new SqlCommand("SELECT adminID FROM Admin WHERE email = @adminEmail;", con);
-                        cmd.Parameters.Add(new SqlParameter("@adminEmail", uname));
-                        findUserID = (int)cmd.ExecuteScalar();
+                        SqlCommand cmd = new SqlCommand("SELECT name FROM Program", con);
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            ListItem NewItem = new ListItem(reader["name"].ToString());
+                            ProgList.Items.Add(NewItem);
+                        }
+                        reader.Close();
                     }
-
-                    cmd = new SqlCommand("SELECT * FROM Program WHERE progManagerID = @manager", con);
-                    cmd.Parameters.Add(new SqlParameter("@manager", findUserID));
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListItem NewItem = new ListItem(reader["name"].ToString());
-                        ProgList.Items.Add(NewItem);
-                    }
-                    con.Close();
-
                 }
-
             }
 
             catch (Exception err)
@@ -82,10 +80,54 @@ namespace Capstone2nd
         protected void BtnSubmit_Click(object sender, EventArgs e)
         {
             String uname = Session["email"].ToString();
-            
+
             Session["programToEdit"] = ProgList.SelectedValue;
             Session["email"] = uname;
             Response.Redirect("EditProgram1.aspx");
+        }
+
+        protected void ProgList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+
+            //always use try/catch for db connections
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT approved FROM Program WHERE name = @ProgList", con);
+                cmd.Parameters.Add(new SqlParameter("@ProgList", ProgList.SelectedValue.ToString()));
+                string approved = "";
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ListItem NewItem = new ListItem(reader["approved"].ToString());
+                    approved = NewItem.ToString();
+                }
+                lblApproved.Text = "Currently: " + approved;
+                reader.Close();
+
+                //set last updated
+                string currentTime = DateTime.Now.ToString(); 
+                cmd = new SqlCommand("UPDATE Program SET lastUpdated = @lastUpdated WHERE name = @ProgList", con);
+                cmd.Parameters.Add(new SqlParameter("@ProgList", ProgList.SelectedValue.ToString()));
+                cmd.Parameters.Add(new SqlParameter("@lastUpdated", currentTime));
+                cmd.ExecuteNonQuery();
+            }
+
+
+            catch (Exception err)
+            {
+                Response.Write("<script>alert(\"" + err.Message + "\");</script>");
+                Response.Write(err.Message);
+                lblMessage.Text = "Cannot submit information now. Please try again later.";
+
+            }
+            finally
+            {
+                con.Close();
+            }
         }
     }
 }

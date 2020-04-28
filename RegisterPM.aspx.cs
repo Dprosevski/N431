@@ -171,9 +171,9 @@ namespace Capstone2nd
 
                 //insert
                 sql = "INSERT INTO  ProgramManager  (roleID, prefix, firstName, middleName, lastName, sufix, email, password, altEmail, phone," +
-                "registerDate, lastLogin, approved, currLoggedIn, rndCode, status)" +
+                "registerDate, lastLogin, approved, status, currLoggedIn, rndCode)" +
                 "values(@roleID, @prefix, @firstName, @middleName, @lastName, @sufix, @email, @pass, @altEmail, @phone," +
-                "@registerDate, NULL, 'no', 'no', @rndCode, 'inactive');";
+                "@registerDate, NULL, 'no', 'inactive', 'no', @rndCode);";
                 cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add(new SqlParameter("@roleID", roleIDForm));
                 cmd.Parameters.Add(new SqlParameter("@prefix", prefixForm));
@@ -188,9 +188,6 @@ namespace Capstone2nd
                 cmd.Parameters.Add(new SqlParameter("@registerDate", currentTime));
                 cmd.Parameters.Add(new SqlParameter("@rndCode", strCodeForm));
                 cmd.ExecuteNonQuery();
-
-                submissionComplete.Text = "Thank you for submitting. Please wait for an admin to approve your submission. You will receive an email when this has happened."; ;
-                submissionComplete.Visible = true;
             }
             catch (Exception err)
             {
@@ -200,7 +197,7 @@ namespace Capstone2nd
             }
             finally
             {
-                //lblMessage.Text = "User has been registered!";
+                lblMessage.Text = "User has been registered!";
                 con.Close();
             }
         }

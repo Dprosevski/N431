@@ -208,8 +208,6 @@
             <asp:Button  CssClass="btn btn-success" ID="Confirm" runat="server" Text="Confirm" UseSubmitBehavior="true" OnClick="Confirm_Click" />
         </form>
 
-        <asp:Label ID="submissionComplete" Height="" runat="server" Font-Size="16pt" Visible="false"></asp:Label>
-
         </div>
         <div class="col-xl-2 col-lg-2">
         </div>

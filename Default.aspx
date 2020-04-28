@@ -58,15 +58,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
     <!-- Start of Main Content Area -->
 
     <div id="main_content">
@@ -75,7 +66,7 @@
 
         <div id="registration">
 
-            <form id="Form2" runat="server">
+            <form id="form1" runat="server">
 
                 <div id="registration_info">
                     <h1>Search Programs</h1>
@@ -85,44 +76,117 @@
                 </div>
 
 
+                <!-- Search by name-->
+                <asp:Label ID="lblName" runat="server">Name Contains:</asp:Label>
+                <asp:TextBox ID="name" MaxLength="50" Width="300" Height="20" Text="" runat="server" Font-Size="12"></asp:TextBox>
+                <br /><hr />
 
-                <table>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblName" runat="server">Name Contains:</asp:Label>
-                        </td>
-                        <td>
-                                <asp:TextBox ID="name" MaxLength="50" Width="300" Height="20" Text="" runat="server" Font-Size="12"></asp:TextBox>
-                        </td>
-                    </tr>
-                </table>
+
+                <!-- Search by field -->
+                <asp:Label runat="server" Text="Search by field's name" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="fieldList"  AppendDataBoundItems="False" AutoPostBack="true" 
+                    runat="server"></asp:DropDownList>
+                <br /><hr />
+
+
+                <!-- Search by eligible grade -->
+                <asp:Label runat="server" Text="Search byn eligible grade" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="gradeList"  AppendDataBoundItems="False" AutoPostBack="true" 
+                    runat="server"></asp:DropDownList>
+                <br /><hr />
+
+
+                <!-- Search by residential -->
+                <asp:Label runat="server" Text="Search by residential" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="residentialList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                <!-- Search by cost -->
+                <asp:Label runat="server" Text="Search by cost" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="costList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                <!-- Search by stipend -->
+                <asp:Label runat="server" Text="Search by stipend" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="stipendList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                <!-- Search by duration -->
+                <asp:Label runat="server" Text="Search by duration" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="durationList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                <!-- Search by season -->
+                <asp:Label runat="server" Text="Search by season" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="seasonList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                 <!-- Search by service area -->
+                <asp:Label runat="server" Text="Search by service area" ForeColor="Black" Font-Size="10pt"></asp:Label><br />
+                <asp:DropDownList ID="areaList"  AppendDataBoundItems="False" 
+                    AutoPostBack="true" runat="server"></asp:DropDownList>
+                <br />
+                <hr />
+
+
+                <!-- Search by start date -->
+                <asp:Label ID="lblStartDate" runat="server">Search by Program's Start Date:</asp:Label>
+                <asp:TextBox ID="startDate" TextMode="Date" runat="server" Font-Size="12"></asp:TextBox>                
+
+
+                <!-- Search by application dead line -->
+                <asp:Label ID="lblAppDeadline" runat="server">Search by Application Deadline:</asp:Label>
+                <asp:TextBox ID="appDeadline" TextMode="Date" runat="server" Font-Size="12"></asp:TextBox><hr />
+
+
+                <!-- Search by University Affiliation -->
+                <asp:Label ID="lblAffiliation" runat="server">Search by University Affiliation:</asp:Label>
+                <asp:TextBox ID="affiliation" runat="server" Font-Size="12"></asp:TextBox><hr />
+
+
+                <!-- Search by Restrictions  -->
+                <asp:Label ID="lblRestrictions" runat="server">Search by Restrictions :</asp:Label>
+                <asp:TextBox ID="restrictions" runat="server" Font-Size="12"></asp:TextBox><hr />
+
+
+                <!-- Search by State  -->
+                <asp:Label ID="lblState" runat="server">Search by State :</asp:Label>
+                <asp:DropDownList ID="stateList"  AppendDataBoundItems="False" AutoPostBack="true" runat="server" OnSelectedIndexChanged="stateList_SelectedIndexChanged"></asp:DropDownList><hr />
+
+
+                <!-- Search by County -->
+                <asp:Label ID="lblCounty" runat="server">Search by County:</asp:Label>
+                <asp:DropDownList ID="countyList"  AppendDataBoundItems="False" AutoPostBack="true" runat="server" OnSelectedIndexChanged="countyList_SelectedIndexChanged"></asp:DropDownList><hr />
+
+
+                <!-- Search by City -->
+                <asp:Label ID="lblCity" runat="server">Search by City:</asp:Label>
+                <asp:DropDownList ID="cityList"  AppendDataBoundItems="False" AutoPostBack="true" runat="server"></asp:DropDownList><hr />
+
 
                 <!--Button for Submitting the Form-->
-                <hr />
-                <asp:Button CssClass="btn btn-primary" ID="btnSubmit" runat="server" Text="Submit" UseSubmitBehavior="true" OnClick="BtnSubmit_Click" />
-
-
+                <asp:Button CssClass="btn btn-primary" ID="btnSubmit" runat="server" Text="Search Programs" UseSubmitBehavior="true" OnClick="BtnSubmit_Click" />
 
             </form>
-
+            
             <div class="clearthis">&nbsp;</div>
         </div>
     </div>
-	<!-- End of Main Content Area -->
-    <div class="clearthis">&nbsp;</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

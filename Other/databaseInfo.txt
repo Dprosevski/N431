@@ -10,4 +10,43 @@ remote:
 asp-net-cs.iupui.edu
 
 
-ADD: gender, DOB
+
+
+ADD:
+program manager role needs fix autopostbacks
+
+we are missing the message displaying that the manager is inactive
+
+edit program needs to be masked for unapproved(?) managers
+
+i think its unapproved... maybe inactive too?
+
+edit profile, separate from change password
+
+i'm gonna have to change the session control, too
+
+to make sure ppl can't just type in links
+5:01 PM
+Avatar
+Paige Wade
+
+the edit program should've been showing approved, not active
+
+actually, both?
+
+either remove active/inactive or add the approved in the admin box
+
+well we didn't lose all the points at least!
+5:24 PM
+Avatar
+Paige Wade
+
+last updated on search result
+
+it literally says on elmer's form put today's date for last updated column but lol
+
+also the dates were appearing but i think because we changed the view its changing how they display on the search page
+
+ONE MORE THING
+
+make sure the csv is working right

@@ -25,10 +25,10 @@ namespace Capstone2nd
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["email"] == null)
+            if (Session["email"] == null)
             {
                 Response.Redirect("login.aspx");
-            }*/
+            }
             //using data binding features to replace this function
             if (Session["headSQL"] != null || Session["whereSQL"] != null)
                 DisplayTransaction(Session["headSQL"].ToString(), Session["whereSQL"].ToString());
@@ -41,19 +41,23 @@ namespace Capstone2nd
 
         protected void DisplayTransaction(string headSql, string whereSql)
         {
-            string cs = WebConfigurationManager.ConnectionStrings["localConnection"].ConnectionString;
-            SqlConnection con = new SqlConnection(cs);
             con.Open();
 
             int count = 0;
-            string sql = "SELECT COUNT(*) FROM Program " + whereSql;
+            string sql = "SELECT COUNT(*) FROM Search " + whereSql;
+
+            if (whereSql == "WHERE ") //if where sql statement blank, then assume all programs
+            {
+                sql = "SELECT COUNT(*) FROM Search";
+                whereSql = "";
+            }
+
             SqlCommand cmd = new SqlCommand(sql, con);
-            //cmd.Parameters.Add(new SqlParameter("@whereSql", whereSql));
             count = (int)cmd.ExecuteScalar();
 
             if (count == 0)
             {
-                lblMessage.Text = "No result is found";
+                lblMessage.Text = headSql + whereSql + "   No result is found";
             }
 
             else
@@ -65,24 +69,17 @@ namespace Capstone2nd
 
                 for (int j = 0; j < res.Count; j++)
                 {
-                    /*[progID], [progManagerID], [name], [acronym], [contactID], [progLocID], [fieldID], [gradesID], [resiID], [programCostID], [durationID], 
-                    [seasonID], [serviceAreaID], [stipendID], [addNotes], [appDeadline], [affCollege], [affCompany], [eligibilityRes], [streetAddress], [progWebsite], 
-                    [ProgDescription], [status]*/
-
                     ArrayList oneRow = new ArrayList();
                     oneRow = (ArrayList)res[j];
                     Panel panel = new Panel();
                     panel.ID = "pnlResult" + oneRow[0].ToString();
+                    panel.CssClass = "searchOutput";
 
                     string uniqueRowID = oneRow[0].ToString();
 
-                    string[] listOfColumns = { "progID", "progManagerID", "name", "acronym", "contactID", "progLocID", "fieldID", "gradesID", "resiID", "programCostID",
-                            "durationID", "seasonID", "serviceAreaID", "stipendID", "addNotes", "appDeadline", "affCollege", "affCompany", "eligibilityRes", "streetAddress",
-                            "progWebsite", "ProgDescription", "status" };
+                    string[] listOfColumns = { "progID", "progManagerFirstName", "progManagerMiddleName", "progManagerLastName", "progName", "progAcronym", "contactPersonFullName", "contactPersonEmail", "contactPersonPhone", "stateName", "stateCode", "county", "city", "zipcode", "fieldOfStudy", "fieldDescription", "grade", "residental", "residentalDescription", "cost", "duration", "season", "serviceArea", "serviceAreaDescription", "stipend", "stipendEligibility", "stipendAmount", "affiliation", "affiliationDescription", "restrictions", "restrictionsDescription", "streetAddress", "progWebsite", "ProgDescription", "startDate", "appDeadline", "lastUpdated" };
 
-                    string[] listOfColumnsToPrompt = { "progID", "progManagerID", "name", "acronym", "contactID", "Program Location ID: ", "fieldID", "gradesID", "resiID", "programCostID",
-                            "durationID", "seasonID", "serviceAreaID", "stipendID", "addNotes", "appDeadline", "affCollege", "affCompany", "eligibilityRes", "streetAddress",
-                            "progWebsite", "ProgDescription", "status" };
+                    string[] listOfColumnsToPrompt = {"progID", "progManagerFirstName", "progManagerMiddleName", "progManagerLastName", "progName", "progAcronym", "contactPersonFullName", "contactPersonEmail", "contactPersonPhone", "stateName", "stateCode", "county", "city", "zipcode", "fieldOfStudy", "fieldDescription", "grade", "residental", "residentalDescription", "cost", "duration", "season", "serviceArea", "serviceAreaDescription", "stipend", "stipendEligibility", "stipendAmount", "affiliation", "affiliationDescription", "restrictions", "restrictionsDescription", "streetAddress", "progWebsite", "ProgDescription", "startDate", "appDeadline", "lastUpdated" };
 
                     for (int k = 0; k < oneRow.Count; k++)
                     {
@@ -90,11 +87,11 @@ namespace Capstone2nd
                         panel.Controls.Add(createLabelValue(listOfColumns[k] + "Val", uniqueRowID, oneRow[k].ToString()));
                         //add blank
                         Label lblBlank = new Label();
-                        lblBlank.Text = "<br />";
+                        lblBlank.Text = "<hr />";
                         panel.Controls.Add(lblBlank);
                     }
 
-                        panel.BorderWidth = Unit.Pixel(5);
+                    panel.BorderWidth = Unit.Pixel(5);
 
                     PnlTrans.Controls.Add(panel);
                 }
@@ -112,6 +109,7 @@ namespace Capstone2nd
             newLbl.ForeColor = System.Drawing.Color.Black;
             newLbl.Font.Bold = true;
             newLbl.Text = text;
+            newLbl.Width = 200;
 
             return newLbl;
         }
@@ -124,6 +122,7 @@ namespace Capstone2nd
             newLbl.Font.Size = 10;
             newLbl.ForeColor = System.Drawing.Color.Black;
             newLbl.Text = text;
+            newLbl.CssClass = "lblSearchValue";
 
             return newLbl;
         }
@@ -134,7 +133,6 @@ namespace Capstone2nd
             try
             {
                 ArrayList res = new ArrayList();
-                con.Open();
 
                 SqlCommand cmd = new SqlCommand(sql, con);
 
